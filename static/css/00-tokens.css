@@ -1,0 +1,36 @@
+/* Design tokens. Colour values follow the brand palette; the stone-ink and control
+   tones are darker derivatives so secondary text and form borders meet WCAG AA. */
+:root {
+  --charcoal: #2C2F2A;
+  --olive: #55624B;
+  --olive-deep: #434E3B;
+  --cream: #F6F2EA;
+  --sand: #EDE6D8;
+  --gold: #C9A96A;
+  --stone: #A79D8F;
+  --stone-ink: #6B6358;       /* stone, darkened for text on cream (5.3:1) */
+  --ink-2: #454942;           /* softer body ink (8.6:1) */
+  --white: #FFFFFF;
+  --control-border: #857D70;  /* 3.3:1 against cream, for form controls */
+
+  --line: rgba(44, 47, 42, .16);
+  --line-strong: rgba(44, 47, 42, .34);
+  --line-light: rgba(246, 242, 234, .24);
+
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-ui: "Montserrat", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-body: "Lora", Georgia, "Times New Roman", serif;
+
+  --gutter: clamp(1.25rem, 4.5vw, 4rem);
+  --container: 84rem;
+  --narrow: 46rem;
+  --section: clamp(4.5rem, 10vw, 9.5rem);
+  --header-h: 5rem;
+
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --dur: .7s;
+}
+
+@media (max-width: 899px) {
+  :root { --header-h: 4.5rem; }
+}
