@@ -34,3 +34,9 @@ def url(path: str = "") -> str:
 
 def abs_url(path: str = "") -> str:
     return f"{ORIGIN}{url(path)}"
+
+
+# Fingerprinted asset paths. build.py overwrites these with hashed names so every deploy
+# gets fresh CSS and JS instead of a copy cached by the browser or the CDN.
+CSS_PATH = "assets/css/main.css"
+JS_PATH = "assets/js/main.js"

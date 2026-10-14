@@ -173,9 +173,9 @@ def page(path, title, description, body, *, overlay=False, og_key=EXT, og_type="
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 {preload_tag}
 <link rel="stylesheet" href="{FONTS}">
-<link rel="stylesheet" href="{url("assets/css/main.css")}">
+<link rel="stylesheet" href="{url(C.CSS_PATH)}">
 <script>document.documentElement.classList.add("js")</script>
-<script type="module" src="{url("assets/js/main.js")}"></script>
+<script type="module" src="{url(C.JS_PATH)}"></script>
 {"".join(ld(s) for s in schema)}
 {extra_head}
 </head>

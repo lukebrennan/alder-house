@@ -11,6 +11,7 @@ Environment:
 from __future__ import annotations
 
 import functools
+import hashlib
 import http.server
 import re
 import shutil
@@ -53,6 +54,20 @@ def build():
         shutil.rmtree(DIST)
     DIST.mkdir()
 
+    # CSS: concatenate in a fixed order, minify, and version the URL so browsers and the CDN never serve a stale copy
+    css = minify_css("\n".join((STATIC / "css" / f"{n}.css").read_text() for n in CSS_ORDER))
+    write(DIST / "assets" / "css" / "main.css", css)
+    C.CSS_PATH = f"assets/css/main.css?v={hashlib.sha1(css.encode()).hexdigest()[:10]}"
+
+    # JS: native ES modules served as-is. Every import carries the same version query so the whole
+    # module graph refreshes together.
+    js_files = sorted((STATIC / "js").glob("*.js"))
+    ver = hashlib.sha1(b"".join(f.read_bytes() for f in js_files)).hexdigest()[:10]
+    for f in js_files:
+        code = re.sub(r'(from\s+")(\./[^"]+\.js)(")', rf"\1\2?v={ver}\3", f.read_text())
+        write(DIST / "assets" / "js" / f.name, code)
+    C.JS_PATH = f"assets/js/main.js?v={ver}"
+
     pages = collect_pages()
     sitemap = []
     for path, html in pages:
@@ -63,12 +78,6 @@ def build():
         if 'content="noindex' not in html:
             sitemap.append(path)
 
-    # CSS: concatenate in a fixed order, then minify
-    css = "\n".join((STATIC / "css" / f"{n}.css").read_text() for n in CSS_ORDER)
-    write(DIST / "assets" / "css" / "main.css", minify_css(css))
-
-    # JS (native ES modules, served as-is) and other static files
-    shutil.copytree(STATIC / "js", DIST / "assets" / "js")
     shutil.copytree(STATIC / "img", DIST / "assets" / "img")
     for f in (STATIC / "favicons").iterdir():
         shutil.copy(f, DIST / f.name)
