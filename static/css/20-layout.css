@@ -95,6 +95,7 @@ body:has(.menu[open]) { overflow: hidden; }
 .social a { display: inline-flex; align-items: center; gap: .7rem; }
 .site-footer__legal { border-top: 1px solid var(--line-light); padding: 1.8rem var(--gutter) 2.4rem; display: grid; gap: .5rem; width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; padding-inline: 0; }
 .site-footer__legal p { margin: 0; font-family: var(--font-ui); font-size: .76rem; line-height: 1.7; color: var(--stone); }
+.site-footer__credit { padding-top: .9rem; margin-top: .4rem !important; border-top: 1px solid var(--line-light); letter-spacing: .12em; text-transform: uppercase; font-size: .68rem !important; color: #CFC8B8 !important; }
 .site-footer__legal strong { color: #E8E2D4; font-weight: 500; }
 
 /* ---------------------------------------------------------------- hero ---- */

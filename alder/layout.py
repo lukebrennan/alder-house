@@ -109,6 +109,7 @@ def footer() -> str:
   <div class="site-footer__legal">
     <p><strong>The Alder House is a fictional portfolio project.</strong> It is not a real hotel; rooms, prices, reviews and contact details are invented. Social links are placeholders.</p>
     <p>&copy; 2026 The Alder House concept. Photography from <a href="https://unsplash.com/" rel="noopener">Unsplash</a> contributors.</p>
+    <p class="site-footer__credit">Website designed and developed by Luke Brennan</p>
   </div>
 </footer>'''
 
