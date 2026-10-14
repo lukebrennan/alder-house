@@ -113,6 +113,18 @@ def footer() -> str:
 </footer>'''
 
 
+BOOT = '''<script>(function(){var d=document.documentElement;d.classList.add("js");try{var s=sessionStorage;if(matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("is-ready")}else{var l=s.getItem("ah-label");if(l!==null){d.classList.add("curtain-hold");d.setAttribute("data-curtain-label",l);s.removeItem("ah-label")}else if(!s.getItem("ah-seen")){d.classList.add("loader")}s.setItem("ah-seen","1");setTimeout(function(){d.classList.add("is-ready");d.classList.remove("loader","curtain-hold")},5000)}}catch(e){d.classList.add("is-ready")}})()</script>'''
+
+CURTAIN = '''<div class="curtain" data-curtain aria-hidden="true">
+  <div class="curtain__inner">
+    <span class="curtain__mark">The Alder House</span>
+    <span class="curtain__label" data-curtain-text></span>
+    <span class="curtain__bar"><i></i></span>
+  </div>
+</div>
+<script>(function(){var l=document.documentElement.getAttribute("data-curtain-label"),t=document.querySelector("[data-curtain-text]");if(l&&t)t.textContent=l})()</script>'''
+
+
 def book_bar(sticky) -> str:
     """Mobile-only booking bar that slides in once the visitor has scrolled past the hero."""
     if sticky is None:
@@ -174,12 +186,13 @@ def page(path, title, description, body, *, overlay=False, og_key=EXT, og_type="
 {preload_tag}
 <link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="{url(C.CSS_PATH)}">
-<script>document.documentElement.classList.add("js")</script>
+{BOOT}
 <script type="module" src="{url(C.JS_PATH)}"></script>
 {"".join(ld(s) for s in schema)}
 {extra_head}
 </head>
 <body class="{body_class}">
+{CURTAIN}
 {header(path, overlay)}
 <main id="main" tabindex="-1">
 {body}

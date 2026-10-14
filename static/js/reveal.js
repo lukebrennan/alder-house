@@ -1,7 +1,7 @@
 /* Fade-and-rise reveals. IntersectionObserver does the work; a scroll check backs it up so nothing
    on screen can ever stay hidden. Reduced motion is handled in CSS. */
 export function initReveal() {
-  const items = [...document.querySelectorAll("[data-reveal], .reveal-img")];
+  const items = [...document.querySelectorAll("[data-reveal], .reveal-img, [data-split]")];
   if (!items.length) return;
   const show = (el) => el.classList.add("is-visible");
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return items.forEach(show);

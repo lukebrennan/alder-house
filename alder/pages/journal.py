@@ -53,7 +53,7 @@ def article_page(a):
   <div class="container narrow">
     {breadcrumbs([("Journal", "journal/"), (a["category"], None)])}
     <p class="article__meta"><span class="article__cat">{a["category"]}</span><time datetime="{a["date"]}">{fmt_date(a["date"])}</time><span>{a["read"]} minute read</span></p>
-    <h1 class="display article__title">{a["title"]}</h1>
+    <h1 class="display article__title" data-split>{a["title"]}</h1>
     <p class="lede">{a["excerpt"]}</p>
   </div>
 </header>

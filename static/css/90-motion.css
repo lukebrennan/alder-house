@@ -1,32 +1,52 @@
 /* Motion: subtle, slow and always optional */
 
-/* Soft page-to-page cross-fade where the browser supports it */
-@view-transition { navigation: auto; }
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: .45s; animation-timing-function: var(--ease); }
-
 /* Reveal on scroll (only when JS has marked the page) */
 .js [data-reveal] { opacity: 0; transform: translateY(1.1rem); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
 .js [data-reveal].is-visible { opacity: 1; transform: none; }
 /* Photographs fade in. The wrapper itself is never hidden or clipped, so the scroll observer can always see it. */
-.js .reveal-img img { opacity: 0; transition: opacity 1.1s var(--ease), transform 1.4s var(--ease); }
-.js .reveal-img.is-visible img { opacity: 1; }
+.js .reveal-img img { opacity: 0; scale: 1.08; transition: opacity 1.1s var(--ease), scale 1.8s var(--ease), transform 1.4s var(--ease); }
+.js .reveal-img.is-visible img { opacity: 1; scale: 1; }
 /* Images inside a block that is already revealing don't need their own fade */
-.js [data-reveal] .reveal-img img { opacity: 1; }
+.js [data-reveal] .reveal-img img { opacity: 1; scale: 1; }
 
 /* Stagger siblings gently */
 .js .feature-list > .feature:nth-child(2), .js .mini-grid > :nth-child(2), .js .experience:nth-child(2) { transition-delay: .08s; }
 .js .mini-grid > :nth-child(3), .js .experience:nth-child(3) { transition-delay: .16s; }
 .js .experience:nth-child(4) { transition-delay: .24s; }
 
-/* Hero settles once on load */
-@keyframes settle { from { transform: scale(1.07); } to { transform: scale(1); } }
-.hero__media img, .page-hero__media img { animation: settle 2.8s var(--ease) both; }
+/* Hero entrance. Everything waits for .is-ready, which is set once the loader or curtain has lifted. */
+@keyframes settle { from { transform: scale(1.08); } to { transform: scale(1); } }
 @keyframes fade-up { from { opacity: 0; transform: translateY(1.2rem); } to { opacity: 1; transform: none; } }
-.hero__content > *, .page-hero__content > * { animation: fade-up 1.1s var(--ease) both; }
-.hero__content > :nth-child(2), .page-hero__content > :nth-child(2) { animation-delay: .1s; }
-.hero__content > :nth-child(3), .page-hero__content > :nth-child(3) { animation-delay: .2s; }
-.hero__content > :nth-child(4), .page-hero__content > :nth-child(4) { animation-delay: .32s; }
-.hero__content > :nth-child(5) { animation-delay: .44s; }
+.js .hero__media img, .js .page-hero__media img { transform: scale(1.08); }
+.js.is-ready .hero__media img, .js.is-ready .page-hero__media img { animation: settle 3s var(--ease) both; }
+.js .hero__content > :not([data-split]), .js .page-hero__content > :not([data-split]) { opacity: 0; }
+.js.is-ready .hero__content > :not([data-split]), .js.is-ready .page-hero__content > :not([data-split]) { animation: fade-up 1.1s var(--ease) both; }
+.js.is-ready .hero__content > :nth-child(1), .js.is-ready .page-hero__content > :nth-child(1) { animation-delay: .05s; }
+.js.is-ready .hero__content > :nth-child(3), .js.is-ready .page-hero__content > :nth-child(3) { animation-delay: .5s; }
+.js.is-ready .hero__content > :nth-child(4), .js.is-ready .page-hero__content > :nth-child(4) { animation-delay: .65s; }
+.js.is-ready .hero__content > :nth-child(5), .js.is-ready .page-hero__content > :nth-child(5) { animation-delay: .8s; }
+
+/* Headlines rise word by word out of a mask */
+.js [data-split] .w { display: inline-block; overflow: hidden; vertical-align: top; padding: .06em .04em .16em; margin: -.06em -.04em -.16em; }
+.js [data-split] .wi { display: inline-block; transform: translateY(115%); transition: transform 1.1s cubic-bezier(.16, 1, .3, 1) calc(var(--i) * 70ms + var(--split-delay, 0ms)); }
+.js [data-split].is-visible .wi { transform: none; }
+.hero__title { --split-delay: 120ms; }
+
+/* Loader and page-transition curtain */
+.curtain { position: fixed; inset: 0; z-index: 400; display: grid; place-items: center; background: var(--charcoal); color: var(--cream); transform: translateY(-101%); visibility: hidden; pointer-events: none; transition: transform .95s cubic-bezier(.76, 0, .24, 1), visibility 0s linear .95s; }
+.loader .curtain, .curtain-hold .curtain { transform: none; visibility: visible; pointer-events: auto; transition: none; }
+.curtain-cover .curtain { transform: none; visibility: visible; pointer-events: auto; transition: transform .65s cubic-bezier(.76, 0, .24, 1), visibility 0s; }
+.curtain__inner { display: grid; justify-items: center; gap: 1.6rem; padding: 0 var(--gutter); text-align: center; }
+.curtain__mark { font-family: var(--font-display); font-size: clamp(1.1rem, .9rem + 1.2vw, 1.7rem); letter-spacing: .34em; padding-left: .34em; text-transform: uppercase; opacity: 0; animation: fade-up .9s var(--ease) .15s both; }
+.curtain__label { font-family: var(--font-display); font-size: clamp(2.6rem, 1rem + 6vw, 6rem); letter-spacing: -.035em; line-height: 1; min-height: 1em; animation: fade-up .7s var(--ease) both; }
+.loader .curtain__label { display: none; }
+.curtain-hold .curtain__mark, .curtain-cover .curtain__mark { font-size: .78rem; letter-spacing: .3em; color: var(--stone); animation-delay: 0s; }
+.curtain__bar { display: none; width: min(15rem, 52vw); height: 1px; background: rgba(246, 242, 234, .22); overflow: hidden; }
+.loader .curtain__bar { display: block; }
+.curtain__bar i { display: block; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: left; animation: load-bar 1.4s cubic-bezier(.65, 0, .35, 1) .1s forwards; }
+@keyframes load-bar { to { transform: scaleX(1); } }
+body:has(.curtain) { scrollbar-gutter: stable; }
+.loader body, .curtain-hold body { overflow: hidden; }
 
 /* Slow parallax on full-bleed bands, driven by scroll, no JS */
 @supports (animation-timeline: view()) {
@@ -39,7 +59,10 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
+  .curtain { display: none !important; }
+  .js [data-split] .wi { transform: none; }
+  .js .hero__content > *, .js .page-hero__content > * { opacity: 1; }
+  .js .hero__media img, .js .page-hero__media img { transform: none; }
   .js [data-reveal] { opacity: 1; transform: none; }
-  .js .reveal-img img { opacity: 1; }
-  @view-transition { navigation: none; }
+  .js .reveal-img img { opacity: 1; scale: 1; }
 }

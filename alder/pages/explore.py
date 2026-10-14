@@ -132,7 +132,7 @@ def build():
 <section class="section section--dark" aria-labelledby="explore-cta">
   <div class="container narrow center" data-reveal>
     {eyebrow("Plan a stay", "eyebrow--gold")}
-    <h2 class="display" id="explore-cta">Come for the landscape. Stay for everything else.</h2>
+    <h2 class="display" id="explore-cta" data-split>Come for the landscape. Stay for everything else.</h2>
     <div class="btn-row">{button("Check availability", url("book/"), "primary", cls="btn--on-image")}{button("Ask for ideas", url("contact/"), "light")}</div>
   </div>
 </section>'''

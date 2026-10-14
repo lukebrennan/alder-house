@@ -1,3 +1,5 @@
+import { initCurtain } from "./curtain.js";
+import { initSplit } from "./split.js";
 import { initHeader } from "./header.js";
 import { initReveal } from "./reveal.js";
 import { initAccordions } from "./accordion.js";
@@ -8,11 +10,12 @@ import { initMap } from "./map.js";
 import { initJournalFilter } from "./filter.js";
 import { initBooking } from "./booking.js";
 
-const ready = (fn) => (document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn) : fn());
+const domReady = (fn) => (document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn) : fn());
 
-ready(() => {
+domReady(() => {
+  const ready = initCurtain();
+  initSplit();
   initHeader();
-  initReveal();
   initAccordions();
   initLightbox();
   initDatePickers();
@@ -20,4 +23,6 @@ ready(() => {
   initMap();
   initJournalFilter();
   initBooking();
+  // Scroll reveals wait for the curtain so nothing animates unseen behind it.
+  ready.then(initReveal);
 });

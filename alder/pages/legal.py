@@ -20,7 +20,7 @@ def simple(path, title, desc, lead, sections):
   <div class="container page-intro__inner">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="{url()}">Home</a></li><li><span aria-current="page">{title}</span></li></ol></nav>
     {eyebrow("The Alder House")}
-    <h1 class="display" id="page-title">{title}</h1>
+    <h1 class="display" id="page-title" data-split>{title}</h1>
     <p class="lede">{lead}</p>
   </div>
 </section>
@@ -33,7 +33,7 @@ def faqs():
   <div class="container page-intro__inner">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="{url()}">Home</a></li><li><span aria-current="page">FAQs</span></li></ol></nav>
     {eyebrow("Good to know")}
-    <h1 class="display" id="page-title">Frequently asked questions.</h1>
+    <h1 class="display" id="page-title" data-split>Frequently asked questions.</h1>
     <p class="lede">Practical answers about your stay, and one or two about the project itself.</p>
   </div>
 </section>

@@ -61,7 +61,7 @@ def reservation():
   <div class="container reserve__grid">
     <div class="reserve__text" data-reveal>
       {eyebrow("Reserve a table")}
-      <h2 class="display" id="reserve-title">Join us for dinner.</h2>
+      <h2 class="display" id="reserve-title" data-split>Join us for dinner.</h2>
       <p class="lede">Tell us when you would like to come and we will do the rest. Residents and visitors are equally welcome.</p>
       <dl class="hours">{"".join(f"<div><dt>{a}</dt><dd>{b}</dd></div>" for a, b in HOURS)}</dl>
     </div>
@@ -92,7 +92,7 @@ def build():
 <section class="section" aria-labelledby="kitchen-title">
   <div class="container narrow center" data-reveal>
     {eyebrow("Eat & drink")}
-    <h2 class="display" id="kitchen-title">Food rooted in the landscape.</h2>
+    <h2 class="display" id="kitchen-title" data-split>Food rooted in the landscape.</h2>
     <p class="lede">Alder Kitchen is a relaxed room with a short menu. We buy from farmers, growers and makers within an hour of the house, cook over wood and flame where it makes sense and let the ingredients do most of the talking.</p>
     <p>Lamb from the fell, trout from the river, vegetables from a walled garden. It is simple food, done with care, and it changes with the weather.</p>
     <nav class="anchor-nav" aria-label="Menus"><ul>{anchors}</ul></nav>

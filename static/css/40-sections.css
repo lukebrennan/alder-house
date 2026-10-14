@@ -99,3 +99,28 @@
 .journal-card__link:hover .journal-card__title span, .journal-card__link:focus-visible .journal-card__title span { background-size: 100% 1px; }
 .journal-card__excerpt { margin: 0; font-size: .98rem; line-height: 1.65; color: var(--ink-2); max-width: 34rem; }
 .journal-card--feature .journal-card__title { font-size: clamp(1.9rem, 1.3rem + 2vw, 2.9rem); letter-spacing: -.03em; }
+
+/* ------------------------------------------------------- new editorial bits */
+.hero__label { display: flex; justify-content: space-between; gap: 1rem; }
+.hero__place { opacity: .95; }
+.hero__label span { text-shadow: 0 1px 16px rgba(20, 22, 19, .55); }
+@media (max-width: 599px) { .hero__place { display: none; } }
+
+.intro__images { margin: 0; }
+.facts { margin-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--line-strong); max-width: 30rem; }
+.facts div { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+.facts dt { font-family: var(--font-ui); font-size: .82rem; font-weight: 500; color: var(--stone-ink); padding-top: .15rem; }
+.facts dd { font-size: .98rem; line-height: 1.5; }
+
+.statement__caption { position: absolute; left: var(--gutter); bottom: 1.4rem; margin: 0; }
+
+/* photo strip */
+.strip { padding-bottom: var(--section); overflow: hidden; }
+.strip__rail { display: flex; align-items: flex-start; gap: clamp(1rem, 2vw, 1.6rem); overflow-x: auto; scroll-snap-type: x proximity; padding: .4rem var(--gutter) 1.4rem; scroll-padding-inline: var(--gutter); scrollbar-width: thin; scrollbar-color: var(--stone) transparent; -webkit-overflow-scrolling: touch; }
+.strip__rail:focus-visible { outline-offset: -4px; }
+.strip__item { flex: 0 0 auto; scroll-snap-align: start; }
+.strip__item .media { height: clamp(18rem, 52vh, 30rem); width: auto; aspect-ratio: var(--ratio); }
+.strip__item:nth-child(even) { margin-top: clamp(1.5rem, 4vw, 3.5rem); }
+@media (min-width: 1500px) { .strip__rail { padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2)); } }
+
+.quote__where { font-weight: 400; }

@@ -100,7 +100,7 @@ def section_head(label, title, intro=None, tag="h2", cls="", title_cls="", title
     intro_html = f'<p class="section-head__intro">{intro}</p>' if intro else ""
     id_attr = f' id="{title_id}"' if title_id else ""
     return (f'<header class="section-head {cls}" data-reveal>{eyebrow(label) if label else ""}'
-            f'<{tag} class="section-head__title {title_cls}"{id_attr}>{title}</{tag}>{intro_html}</header>')
+            f'<{tag} class="section-head__title {title_cls}"{id_attr} data-split>{title}</{tag}>{intro_html}</header>')
 
 
 def media(key, ratio=(3, 2), sizes="100vw", cls="", reveal=True, **kw) -> str:
@@ -109,6 +109,11 @@ def media(key, ratio=(3, 2), sizes="100vw", cls="", reveal=True, **kw) -> str:
     r = " reveal-img" if reveal else ""
     return (f'<figure class="media{r} {cls}" style="--ratio:{rw}/{rh}">'
             f'{img(key, ratio=ratio, sizes=sizes, **kw)}</figure>')
+
+
+def caption(text, cls="") -> str:
+    """Small editorial caption, set apart from the photograph."""
+    return f'<p class="caption {cls}">{text}</p>'
 
 
 def breadcrumbs(items) -> str:
@@ -315,6 +320,10 @@ def page_hero(title, label, lede, key, crumbs=None, ratio=(16, 9), mobile_ratio=
     from .images import img as _img
     picture = _img(key, ratio=ratio, sizes="100vw", widths=(800, 1200, 1600, 2000, 2560), priority=True,
                    mobile_ratio=mobile_ratio)
+    # Drop the label when it only repeats the breadcrumb ("Explore" over "Explore").
+    norm = lambda x: (x or "").lower().replace("the ", "").strip()
+    if label and crumbs and norm(label) == norm(crumbs[-1][0]):
+        label = ""
     crumb_html = breadcrumbs(crumbs).replace('class="breadcrumbs"', 'class="breadcrumbs breadcrumbs--light"') if crumbs else ""
     return f'''<section class="page-hero {cls}" aria-labelledby="page-title">
   <div class="page-hero__media">{picture}</div>
@@ -322,7 +331,7 @@ def page_hero(title, label, lede, key, crumbs=None, ratio=(16, 9), mobile_ratio=
   <div class="page-hero__content">
     {crumb_html}
     {f'<p class="eyebrow eyebrow--light">{label}</p>' if label else ""}
-    <h1 class="page-hero__title" id="page-title">{title}</h1>
+    <h1 class="page-hero__title" id="page-title" data-split>{title}</h1>
     {f'<p class="page-hero__lede">{lede}</p>' if lede else ""}
   </div>
 </section>'''

@@ -6,6 +6,17 @@
 .hover-zoom img { transition: transform 1.4s var(--ease); will-change: transform; }
 a:hover .hover-zoom img, a:focus-visible .hover-zoom img, .hover-zoom:hover img { transform: scale(1.04); }
 
+/* One colour grade for every photograph, so images from different shoots read as a single set:
+   slightly softer saturation, a touch more contrast and a warm, olive-leaning cast. */
+.media img, .hero__media img, .page-hero__media img, .statement__media img, .final-cta__media img, .gallery img, .lightbox__img {
+  filter: saturate(.84) contrast(1.04) sepia(.09) hue-rotate(-4deg) brightness(.99);
+}
+.media::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(85, 98, 75, .07), rgba(44, 47, 42, .1)); mix-blend-mode: multiply; }
+
+/* Captions: small, plain and set like a magazine credit */
+.caption { margin: .8rem 0 0; font-family: var(--font-ui); font-size: .78rem; line-height: 1.5; color: var(--stone-ink); }
+.caption--light { color: rgba(246, 242, 234, .8); }
+
 /* ---------------------------------------------------------------- logo --- */
 .logo { justify-self: start; display: inline-flex; flex-direction: column; align-items: flex-start; text-decoration: none; line-height: 1; color: inherit; gap: .3rem; text-transform: uppercase; }
 .logo__the { font-family: var(--font-ui); font-size: .54rem; letter-spacing: .5em; font-weight: 500; }

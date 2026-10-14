@@ -27,7 +27,7 @@ def listing():
 <section class="section section--sand" aria-labelledby="stay-cta-title">
   <div class="container narrow center" data-reveal>
     {eyebrow("Plan your stay")}
-    <h2 class="display" id="stay-cta-title">Not sure which room? Ask us.</h2>
+    <h2 class="display" id="stay-cta-title" data-split>Not sure which room? Ask us.</h2>
     <p class="lede">Tell us what you are celebrating, or simply what you need, and we will suggest the right room and the best time to come.</p>
     <div class="btn-row">{button("Check availability", url("book/"), "primary")}{button("Contact the house", url("contact/"), "secondary")}</div>
   </div>
@@ -48,7 +48,7 @@ def room_page(r):
   {breadcrumbs([("Stay", "stay/"), (r["name"], None)])}
   <div class="room-page__title" data-reveal>
     {eyebrow("Stay · " + r["view"])}
-    <h1 class="display">{r["name"]}</h1>
+    <h1 class="display" data-split>{r["name"]}</h1>
     <p class="lede">{r["tagline"]}</p>
   </div>
 </div>

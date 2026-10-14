@@ -34,7 +34,7 @@ def book():
   <div class="container page-intro__inner">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="{url()}">Home</a></li><li><span aria-current="page">Book</span></li></ol></nav>
     {eyebrow("Book your stay")}
-    <h1 class="display" id="page-title">Check availability.</h1>
+    <h1 class="display" id="page-title" data-split>Check availability.</h1>
     <p class="lede">Choose your dates and we will show you what is free. Breakfast is included in every room.</p>
   </div>
 </section>
@@ -58,7 +58,7 @@ def summary():
   <div class="container page-intro__inner">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="{url()}">Home</a></li><li><a href="{url("book/")}">Book</a></li><li><span aria-current="page">Summary</span></li></ol></nav>
     {eyebrow("Almost there")}
-    <h1 class="display" id="page-title">Your stay.</h1>
+    <h1 class="display" id="page-title" data-split>Your stay.</h1>
   </div>
 </section>
 <section class="section section--tight-top book" aria-label="Booking summary">

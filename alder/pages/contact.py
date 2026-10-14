@@ -17,7 +17,7 @@ def build():
   <div class="container page-intro__inner">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="{url()}">Home</a></li><li><span aria-current="page">Contact</span></li></ol></nav>
     {eyebrow("Contact")}
-    <h1 class="display" id="page-title">Get in touch, or drop in.</h1>
+    <h1 class="display" id="page-title" data-split>Get in touch, or drop in.</h1>
     <p class="lede">Questions about a room, a special occasion or a dog? We read every message and reply within a day.</p>
   </div>
 </section>
@@ -51,7 +51,7 @@ def build():
   <div class="container directions">
     <div data-reveal>
       {eyebrow("Directions")}
-      <h2 class="display" id="dir-title">Finding the house.</h2>
+      <h2 class="display" id="dir-title" data-split>Finding the house.</h2>
       <p class="lede">A few notes on arriving, whether you come by car, by train or on foot.</p>
     </div>
     <div class="directions__cols" data-reveal>
