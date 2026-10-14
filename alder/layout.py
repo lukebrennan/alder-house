@@ -8,7 +8,7 @@ from html import escape
 
 from . import config as C
 from .config import url, abs_url
-from .images import og_image
+from .images import SIZES, og_image, src
 from .ui import icon, newsletter_form, button
 
 FONTS = (
@@ -130,7 +130,10 @@ def page(path, title, description, body, *, overlay=False, og_key=EXT, og_type="
     if crumbs:
         schema.append(breadcrumb_ld([("Home", "")] + crumbs))
     robots = "noindex, follow" if noindex else "index, follow, max-image-preview:large"
-    preload_tag = f'<link rel="preload" as="image" href="{preload}" fetchpriority="high">' if preload else ""
+    preload_tag = ""
+    if preload:  # an image key: preload the right rendition for the viewport and pixel density
+        srcset = ", ".join(f"{src(preload, s)} {s}w" for s in SIZES)
+        preload_tag = f'<link rel="preload" as="image" href="{src(preload, 1600)}" imagesrcset="{srcset}" imagesizes="100vw" fetchpriority="high">'
     og = og_image(og_key)
     return f'''<!doctype html>
 <html lang="en-GB" data-base="{C.BASE}">

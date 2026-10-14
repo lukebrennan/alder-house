@@ -11,7 +11,7 @@ from ..ui import booking_form, demo_banner, eyebrow, icon
 
 def rooms_json() -> str:
     data = [dict(slug=r["slug"], name=r["name"], price=r["price"], sleeps=r["sleeps"], bed=r["bed"], view=r["view"],
-                 size=r["size"], short=r["short"], image=src(r["lead"], 900, 675), alt=alt_for(r["lead"]),
+                 size=r["size"], short=r["short"], image=src(r["lead"], 800), alt=alt_for(r["lead"]),
                  href=url(f'stay/{r["slug"]}/')) for r in ROOMS]
     payload = json.dumps(data).replace("</", "<\\/")
     return f'<script type="application/json" id="rooms-data">{payload}</script>'

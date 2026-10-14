@@ -86,7 +86,7 @@ ARTICLES = [
         slug="restoring-the-house-in-stone-and-lime",
         title="Restoring the house, in stone and lime",
         category="Hotel", date="2026-07-30", read=6, hero=TERR,
-        excerpt="How a quiet old stone house became The Alder House, and why we chose to repair rather than replace.",
+        excerpt="How a quiet old house became The Alder House, and why we chose to repair rather than replace.",
         body=[
             ("p", "When we first walked through the house, it had been empty for some time. The roof was sound, the walls were thick and the light came in at angles that made us stop talking. We decided, quite quickly, that our job was to do as little as possible, and to do it well."),
             ("h2", "Repair, don't replace"),

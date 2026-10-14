@@ -43,9 +43,8 @@ alder/
 static/
   css/              tokens → base → layout → components → sections → pages → motion
   js/               Small ES modules: header, reveal, accordion, lightbox, datepicker, forms, map, filter, booking
-  img/photos/       Supplied photography (WebP)
-  img/brand/        Supplied logos and brand elements
-  favicons/         Supplied favicon set
+  img/photos/       Photography, three WebP sizes each (see SOURCES.md)
+  favicons/         Favicon set from the supplied brand assets
 .github/workflows/  GitHub Pages deployment
 ```
 
@@ -80,7 +79,11 @@ For a custom domain, set `SITE_ORIGIN` to the domain and `BASE_PATH` to empty in
 
 ## Photography
 
-Photographs come from the supplied asset pack (`the-alder-house-website-assets`). Swap any image by replacing its
-file in `static/img/photos/` (keep the file name or update `alder/images.py`). One image,
-`the-alder-suite-lake-view-bedroom.webp`, contains a script sign on the wall; the site crops it out on the page via
-the `crop-clear-sign` class, but the lightbox shows the full frame.
+All 24 photographs are high-resolution images from [Unsplash](https://unsplash.com/) contributors, used under the
+Unsplash licence. Each lives in `static/img/photos/` as three WebP renditions (`<name>-800.webp`, `-1600.webp`,
+`-2400.webp`) and is served with a `srcset`, so phones get small files and retina desktops get sharp ones. The hero
+is preloaded with its `srcset`.
+
+To swap a photograph, replace its three files (keeping the names) or add new files and update the manifest in
+`alder/images.py`, which also holds the alt text and focal point for each image. The original source IDs are listed
+in `static/img/photos/SOURCES.md`.

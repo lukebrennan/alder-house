@@ -202,7 +202,7 @@ def gallery(room) -> str:
     """Photo grid; each tile opens the lightbox (see lightbox.js)."""
     tiles = []
     for n, key in enumerate(room["gallery"]):
-        big = src(key, 2000, 1333, q=78)
+        big = src(key, 2400)
         thumb_ratio = (4, 3) if n else (3, 2)
         sizes = "(min-width: 960px) 40vw, 100vw" if n == 0 else "(min-width: 960px) 20vw, 50vw"
         tiles.append(

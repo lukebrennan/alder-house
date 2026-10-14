@@ -1,8 +1,9 @@
-"""Photography manifest and <img> helper.
+"""Photography manifest and responsive <img> helper.
 
-Photographs are the supplied WebP files in static/img/photos/. Keys are the file
-names (without extension), so every image has a descriptive filename. Swap a
-photo by replacing the file; edit alt text and focal point here.
+Photographs live in static/img/photos/ in three sizes per image
+(<name>-800.webp, <name>-1600.webp, <name>-2400.webp). Keys are the file names
+without the size suffix, so every image has a descriptive filename. To swap a
+photo, replace its three files (keep the names) or edit the manifest below.
 """
 from __future__ import annotations
 
@@ -10,69 +11,72 @@ from html import escape
 
 from .config import abs_url, url
 
-EXT = "alder-house-lake-district-hotel-exterior-sunset"
-TERR = "alder-house-lakeside-terrace-golden-hour"
-ENT = "alder-house-boutique-hotel-entrance"
-BRK = "alder-house-breakfast-full-english"
-BATH = "alder-house-freestanding-bath-room-detail"
-BATHV = "alder-house-lake-view-bathroom"
-COCK = "alder-house-signature-cocktail"
-LAMB = "alder-kitchen-herdwick-lamb-main-course"
-REST = "alder-kitchen-restaurant-interior"
-FISH = "alder-kitchen-seasonal-fish-main-course"
-STP = "alder-kitchen-sticky-toffee-pudding"
-WINE = "alder-kitchen-wine-dinner-setting"
-AUT = "lake-district-autumn-lake-mountains"
-EVE = "lake-district-evening-fell-landscape"
-WALK = "lake-district-fell-walking-sunrise"
-JET = "lake-district-lakeside-jetty-rowing-boat"
-VIL = "lake-district-stone-village-street"
-WTF = "lake-district-woodland-waterfall"
-SUITE = "the-alder-suite-lake-view-bedroom"
-CORN = "the-corner-room-boutique-hotel"
-FELL = "the-fell-room-lake-district-boutique-hotel"
-GARD = "the-garden-room-boutique-hotel"
-HOUSE = "the-house-suite-private-lounge"
-LAKE = "the-lake-room-boutique-hotel"
+EXT = "windermere-sunset-jetty-silhouette"
+TERR = "derwentwater-dusk-pink-cloud"
+ENT = "stone-manor-house-reflected-in-water"
+BRK = "breakfast-table-by-window"
+BATH = "freestanding-bath-wide-window"
+BATHV = "white-freestanding-bath-with-fern"
+COCK = "cocktail-glass-dark-bar"
+LAMB = "sunday-roast-plate-greens"
+REST = "timber-dining-room-tall-windows"
+FISH = "roast-fish-tomatoes-golden-sauce"
+STP = "sticky-toffee-pudding-blue-plate"
+WINE = "dinner-table-wine-glasses"
+AUT = "lakes-between-green-hills"
+EVE = "rowing-boats-moored-at-dusk"
+WALK = "walker-above-lake-district-lake"
+JET = "boats-on-windermere-golden-haze"
+VIL = "lakeland-cottage-red-door"
+WTF = "wild-swimmer-lake-fells"
+SUITE = "green-bedroom-white-bedding"
+CORN = "bedroom-sculptural-timber-headboard"
+FELL = "bedroom-green-panelling-throw"
+GARD = "bed-beside-bright-window"
+HOUSE = "sitting-room-wood-burner"
+LAKE = "bedroom-olive-wall-gingham-pillows"
 
-# key: (width, height, alt, focal x, focal y)
+# key: (width of largest file, height, alt text, focal point x, focal point y)
 _RAW = {
-    EXT: (2000, 1200, "Golden light over a Lake District lake and fells, with a hotel terrace among the trees on the right", .42, .5),
-    TERR: (1800, 1200, "A lakeside terrace with parasols and tables, and a view across the water to the fells at golden hour", .5, .5),
-    ENT: (1600, 1200, "A black front door with a brass knocker, flanked by olive trees in stone planters", .35, .5),
-    BRK: (1600, 1200, "A cooked breakfast of eggs, bacon, sausage, tomato and mushrooms, with coffee and juice", .5, .5),
-    BATH: (1600, 1200, "A freestanding bath beside a window in a calm bathroom with a lamp and an armchair", .5, .5),
-    BATHV: (1600, 1200, "A freestanding bath and a basin in a bright bathroom with a view of the fells", .4, .5),
-    COCK: (1600, 1200, "A creamy cocktail in a coupe glass, garnished with a dried orange slice", .5, .5),
-    LAMB: (1600, 1200, "Herdwick lamb with potatoes and greens on a white plate", .5, .5),
-    REST: (1800, 1200, "The Alder Kitchen dining room, with wooden tables and chairs, plants and a lit shelf of bottles", .5, .5),
-    FISH: (1600, 1200, "A seared fish fillet on a bed of greens in a pale sauce", .5, .5),
-    STP: (1600, 1200, "Sticky toffee pudding with cream and caramel sauce on a white plate", .5, .5),
-    WINE: (1600, 1200, "A glass of white wine beside a candle and sprigs of herbs on a dinner table", .6, .5),
-    AUT: (1800, 1200, "An autumn lake with a wooded island and mountains beyond", .5, .5),
-    EVE: (1800, 1200, "A footpath beside a dry stone wall leading to a lake and fells in evening light", .5, .5),
-    WALK: (1800, 1200, "A walker looking out over a lake and fells at sunrise", .5, .5),
-    JET: (1800, 1200, "A wooden rowing boat beside a jetty on a lake, with fells beyond", .5, .5),
-    VIL: (1800, 1200, "A Lakeland village street lined with stone cottages and flowers", .4, .5),
-    WTF: (1600, 1200, "A waterfall tumbling over mossy rocks in woodland", .5, .5),
-    SUITE: (1600, 1200, "The Alder Suite bedroom, with olive and cream linen, lamps and a lake view", .3, .6),
-    CORN: (1600, 1200, "The Corner Room, with an olive throw on a cream bed and windows looking out to the fells", .5, .5),
-    FELL: (1600, 1200, "The Fell Room, with an upholstered headboard, an olive throw, bedside lamps and a view of the fells", .5, .5),
-    GARD: (1600, 1200, "The Garden Room, with an olive throw on a white bed, lamps and tall doors to the garden", .5, .5),
-    HOUSE: (1600, 1200, "The House Suite sitting room, with green armchairs beside a lit fire", .5, .5),
-    LAKE: (1600, 1200, "The Lake Room, with olive and white linen on the bed and a lake view through the window", .5, .5),
+    EXT: (2400, 1600, "Sunset over Windermere, with the posts of an old jetty silhouetted against the water", 0.5, 0.55),
+    TERR: (2400, 1600, "Derwentwater at dusk, with pink cloud above the fells and still water below", 0.5, 0.5),
+    ENT: (2400, 1606, "A timber-framed manor house with tall brick chimneys, reflected in still water beneath a blue sky", 0.5, 0.45),
+    BRK: (2400, 1585, "A breakfast table by a window, laid with coffee, bread and a potted plant", 0.5, 0.5),
+    BATH: (2400, 1350, "A freestanding stone bath beside a wide window looking out to open landscape", 0.5, 0.5),
+    BATHV: (2400, 1600, "A white freestanding bath in a bright bathroom with a fern beside it", 0.5, 0.5),
+    COCK: (2400, 1600, "A cocktail in a glass on a dark bar table", 0.5, 0.5),
+    LAMB: (2400, 1800, "A plate of roast meat with greens and carrots", 0.5, 0.5),
+    REST: (2400, 1600, "A timber-lined dining room with lamps, set tables and windows looking out to trees", 0.5, 0.5),
+    FISH: (2400, 3600, "A fillet of white fish with roasted tomatoes and a golden sauce", 0.5, 0.3),
+    STP: (2400, 1921, "Sticky toffee pudding topped with ice cream, on a blue patterned plate", 0.5, 0.5),
+    WINE: (2400, 1602, "A dinner table laid with wine glasses and a candlelit lamp", 0.5, 0.5),
+    AUT: (2400, 1600, "A lake lying between rolling green hills under a broad sky", 0.5, 0.5),
+    EVE: (2400, 1600, "Rowing boats moored on a lake at dusk, with dark fells behind", 0.5, 0.5),
+    WALK: (2400, 1600, "A walker sitting on a hillside high above a Lake District lake", 0.5, 0.5),
+    JET: (2400, 1800, "Boats on the water at Windermere in golden haze", 0.5, 0.5),
+    VIL: (2400, 1639, "A whitewashed Lakeland cottage with a red door beside a country lane", 0.5, 0.5),
+    WTF: (2400, 1351, "A wild swimmer in a Lake District lake, with fells rising behind", 0.5, 0.5),
+    SUITE: (2400, 1600, "The Alder Suite bedroom, with deep green walls, white bedding and windows onto the trees", 0.5, 0.5),
+    CORN: (2400, 1600, "The Corner Room, with a sculptural timber headboard, white linen and a striped rug", 0.5, 0.5),
+    FELL: (2400, 1636, "The Fell Room, with sage green panelling, white linen and a heather-coloured throw", 0.5, 0.5),
+    GARD: (2400, 1600, "The Garden Room, with a white-linen bed beside a bright window", 0.5, 0.5),
+    HOUSE: (2400, 1600, "The House Suite sitting room, with a lit wood burner, armchairs and warm lamplight", 0.5, 0.5),
+    LAKE: (2400, 1536, "The Lake Room, with olive walls, gingham cushions and a brown wool blanket", 0.5, 0.5),
 }
 
 IMAGES = {k: dict(w=v[0], h=v[1], alt=v[2], fx=v[3], fy=v[4]) for k, v in _RAW.items()}
+SIZES = (800, 1600, 2400)
 
 
-def src(key: str, *_ignored, **__) -> str:
-    """Root-relative URL of a photograph (extra size arguments are accepted and ignored)."""
-    return url(f"assets/img/photos/{key}.webp")
+def src(key: str, width: int = 1600, **_ignored) -> str:
+    """Root-relative URL of the smallest rendition that is at least `width` wide."""
+    size = next((s for s in SIZES if s >= width), SIZES[-1])
+    return url(f"assets/img/photos/{key}-{size}.webp")
 
 
-def abs_src(key: str) -> str:
-    return abs_url(f"assets/img/photos/{key}.webp")
+def abs_src(key: str, width: int = 1600) -> str:
+    size = next((s for s in SIZES if s >= width), SIZES[-1])
+    return abs_url(f"assets/img/photos/{key}-{size}.webp")
 
 
 def alt_for(key: str) -> str:
@@ -81,17 +85,16 @@ def alt_for(key: str) -> str:
 
 def img(key, ratio=None, sizes="100vw", widths=None, alt=None, loading="lazy", cls="", priority=False,
         mobile_ratio=None) -> str:
-    """<img> with intrinsic dimensions (no layout shift) and a focal-point crop."""
+    """<img> with a srcset, intrinsic dimensions (no layout shift) and a focal-point crop."""
     d = IMAGES[key]
     a = escape(alt if alt is not None else d["alt"], quote=True)
     load = 'fetchpriority="high" loading="eager"' if priority else f'loading="{loading}"'
-    # The Alder Suite photo has a decorative script sign on the wall; crop it out on the page.
-    cls = f"{cls} crop-clear-sign".strip() if key == SUITE else cls
     c = f' class="{cls}"' if cls else ""
     pos = f'style="object-position:{round(d["fx"] * 100)}% {round(d["fy"] * 100)}%" '
-    return (f'<img src="{src(key)}" width="{d["w"]}" height="{d["h"]}" alt="{a}" sizes="{sizes}" '
-            f'{pos}decoding="async" {load}{c}>')
+    srcset = ", ".join(f"{src(key, s)} {s}w" for s in SIZES)
+    return (f'<img src="{src(key, 1600)}" srcset="{srcset}" sizes="{sizes}" width="{d["w"]}" height="{d["h"]}" '
+            f'alt="{a}" {pos}decoding="async" {load}{c}>')
 
 
 def og_image(key: str) -> str:
-    return abs_src(key)
+    return abs_src(key, 1600)

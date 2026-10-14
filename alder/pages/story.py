@@ -41,14 +41,14 @@ def chapter(i, c) -> str:
 
 
 def build():
-    body = f'''{page_hero("A house shaped by its <em>surroundings.</em>", "Our story", "How an old stone house in the fells became a small, quiet hotel.",
+    body = f'''{page_hero("A house shaped by its <em>surroundings.</em>", "Our story", "How an old house in the fells became a small, quiet hotel.",
                          ENT, crumbs=[("Our Story", None)])}
 <section class="section" aria-labelledby="begin-title">
   <div class="container narrow" data-reveal>
     {eyebrow("The beginning")}
     <h2 class="display" id="begin-title">It did not need to be reinvented. It needed to be <em>looked after.</em></h2>
     <div class="prose prose--lede">
-      <p>The Alder House began with an old stone house, a slope of fell behind it and a lake in front. It was quiet and a little tired, and it was clear what it wanted.</p>
+      <p>The Alder House began with an old house, a slope of fell behind it and a lake in front. It was quiet and a little tired, and it was clear what it wanted.</p>
       <p>We spent the first year doing very little. We walked the rooms in different weather, learned where the light fell at four o'clock and listened to the people who knew the building better than we did.</p>
       <p>The plan, once we had one, was simple: keep what was good, mend what was broken and add only what we would use ourselves.</p>
     </div>
@@ -71,5 +71,5 @@ def build():
 </section>
 <div class="container demo-wrap">{demo_banner("This story is fiction, written for the concept. The Alder House is not a real property, and no real building, history or craftsperson is described.")}</div>'''
     return [("our-story/", page("our-story/", "Our Story",
-                                "The fictional story of The Alder House: an old stone house in the Lake District, repaired with care, local craftspeople and a light touch.",
+                                "The fictional story of The Alder House: an old house in the Lake District, repaired with care, local craftspeople and a light touch.",
                                 body, overlay=True, og_key=ENT, crumbs=[("Our Story", "our-story/")]))]

@@ -199,5 +199,5 @@ def build():
                 "A fictional boutique hotel concept in the Lake District: individually designed rooms, seasonal cooking and a quiet corner of the fells. Stay a little longer.",
                 body, overlay=True, schema=[hotel_schema()], body_class="page-home",
                 full_title="The Alder House | Boutique Hotel in the Lake District (Concept Project)",
-                preload=src(EXT))
+                preload=EXT)
     return [("", html)]

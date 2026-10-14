@@ -3,7 +3,6 @@
 /* ---------------------------------------------------------------- media -- */
 .media { position: relative; overflow: hidden; margin: 0; background: var(--sand); aspect-ratio: var(--ratio, 3/2); }
 .media img { width: 100%; height: 100%; object-fit: cover; }
-.media img.crop-clear-sign { scale: 1.45; transform-origin: 0 100%; object-position: 0 100% !important; }
 .hover-zoom img { transition: transform 1.3s var(--ease); will-change: transform; }
 a:hover .hover-zoom img, a:focus-visible .hover-zoom img, .hover-zoom:hover img { transform: scale(1.035); }
 
