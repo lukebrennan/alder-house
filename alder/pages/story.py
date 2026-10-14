@@ -41,12 +41,12 @@ def chapter(i, c) -> str:
 
 
 def build():
-    body = f'''{page_hero("A house shaped by its <em>surroundings.</em>", "Our story", "How an old house in the fells became a small, quiet hotel.",
+    body = f'''{page_hero("A house shaped by its surroundings.", "Our story", "How an old house in the fells became a small, quiet hotel.",
                          ENT, crumbs=[("Our Story", None)])}
 <section class="section" aria-labelledby="begin-title">
   <div class="container narrow" data-reveal>
     {eyebrow("The beginning")}
-    <h2 class="display" id="begin-title">It did not need to be reinvented. It needed to be <em>looked after.</em></h2>
+    <h2 class="display" id="begin-title">It did not need to be reinvented. It needed to be looked after.</h2>
     <div class="prose prose--lede">
       <p>The Alder House began with an old house, a slope of fell behind it and a lake in front. It was quiet and a little tired, and it was clear what it wanted.</p>
       <p>We spent the first year doing very little. We walked the rooms in different weather, learned where the light fell at four o'clock and listened to the people who knew the building better than we did.</p>
@@ -59,17 +59,16 @@ def build():
   <div class="statement__media" data-parallax>{img(WTF, ratio=(16, 9), sizes="100vw", widths=(800, 1200, 1600, 2000, 2560), mobile_ratio=(4, 5))}</div>
   <div class="statement__scrim" aria-hidden="true"></div>
   <div class="statement__content" data-reveal>
-    <blockquote class="statement__quote"><p>Our job was to do as little as possible, and to do it <em>well.</em></p></blockquote>
+    <blockquote class="statement__quote"><p>Our job was to do as little as possible, and to do it well.</p></blockquote>
   </div>
 </section>
 <section class="section section--sand" aria-labelledby="story-cta">
   <div class="container narrow center" data-reveal>
     {eyebrow("Come and see")}
-    <h2 class="display" id="story-cta">The best way to understand a house is to <em>stay in it.</em></h2>
+    <h2 class="display" id="story-cta">The best way to understand a house is to stay in it.</h2>
     <div class="btn-row">{button("View the rooms", url("stay/"), "primary")}{text_link("Read the Journal", url("journal/"))}</div>
   </div>
-</section>
-<div class="container demo-wrap">{demo_banner("This story is fiction, written for the concept. The Alder House is not a real property, and no real building, history or craftsperson is described.")}</div>'''
+</section>'''
     return [("our-story/", page("our-story/", "Our Story",
-                                "The fictional story of The Alder House: an old house in the Lake District, repaired with care, local craftspeople and a light touch.",
+                                "The story of The Alder House: an old house in the Lake District, repaired with care, local craftspeople and a light touch.",
                                 body, overlay=True, og_key=ENT, crumbs=[("Our Story", "our-story/")]))]

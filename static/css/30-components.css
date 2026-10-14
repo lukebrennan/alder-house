@@ -1,7 +1,7 @@
 /* Reusable components */
 
 /* -------------------------------------------------------------- buttons --- */
-.btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .8rem; min-height: 3.25rem; padding: .95rem 2rem; border: 1px solid transparent; border-radius: 1px; font-family: var(--font-ui); font-size: .74rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; line-height: 1.2; text-align: center; cursor: pointer; transition: background-color .45s var(--ease), color .45s var(--ease), border-color .45s var(--ease), transform .45s var(--ease); }
+.btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .8rem; min-height: 3.1rem; padding: .85rem 1.7rem; border: 1px solid transparent; border-radius: 0; font-family: var(--font-ui); font-size: .9rem; font-weight: 500; letter-spacing: .01em; text-decoration: none; line-height: 1.2; text-align: center; cursor: pointer; transition: background-color .45s var(--ease), color .45s var(--ease), border-color .45s var(--ease), transform .45s var(--ease); }
 .btn__icon { transition: transform .5s var(--ease); flex: none; }
 .btn:hover .btn__icon { transform: translateX(.3rem); }
 .btn--small { min-height: 2.75rem; padding: .7rem 1.4rem; font-size: .68rem; }
@@ -13,11 +13,11 @@
 .btn--light:hover { background: var(--cream); color: var(--charcoal); border-color: var(--cream); }
 .btn--on-image.btn--primary { border-color: rgba(246, 242, 234, .55); }
 .btn--on-image.btn--primary:hover { background: var(--cream); color: var(--charcoal); border-color: var(--cream); }
-.js .site-header[data-mode="overlay"]:not(.is-solid) .btn--primary { background: transparent; border-color: rgba(246, 242, 234, .7); }
+.js .site-header[data-mode="overlay"]:not(.is-solid) .btn--primary { background: rgba(246, 242, 234, .14); border-color: rgba(246, 242, 234, .55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .js .site-header[data-mode="overlay"]:not(.is-solid) .btn--primary:hover { background: var(--cream); color: var(--charcoal); }
 .btn[disabled] { opacity: .5; cursor: not-allowed; }
 
-.link-arrow { display: inline-flex; align-items: center; gap: .8rem; font-family: var(--font-ui); font-size: .74rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; color: var(--olive); padding-block: .5rem; }
+.link-arrow { display: inline-flex; align-items: center; gap: .8rem; font-family: var(--font-ui); font-size: .92rem; font-weight: 500; letter-spacing: .01em; text-decoration: none; color: var(--olive); padding-block: .5rem; }
 .link-arrow span { position: relative; padding-bottom: .3rem; }
 .link-arrow span::after { bottom: 0; transform: scaleX(.0); }
 .link-arrow:hover span::after, .link-arrow:focus-visible span::after { transform: scaleX(1); }
@@ -27,7 +27,7 @@
 
 /* ---------------------------------------------------------------- forms --- */
 .field { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.4rem; }
-.field label { font-family: var(--font-ui); font-size: .68rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); }
+.field label { font-family: var(--font-ui); font-size: 0.8rem; font-weight: 500; letter-spacing: .01em; color: var(--ink-2); }
 .field__req { color: var(--olive); }
 .field input, .field select, .field textarea { width: 100%; min-height: 3.25rem; padding: .8rem 1rem; background: var(--white); border: 1px solid var(--control-border); border-radius: 1px; font-family: var(--font-body); font-size: 1rem; color: var(--charcoal); transition: border-color .3s, box-shadow .3s; appearance: none; -webkit-appearance: none; }
 .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232C2F2A' stroke-width='1.3'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
@@ -53,9 +53,9 @@
 .newsletter .form-status { color: var(--gold); }
 
 /* ------------------------------------------------------- booking widget --- */
-.booking { position: relative; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.booking { position: relative; display: grid; gap: 1px; background: var(--line); }
 .booking__field { position: relative; background: var(--cream); padding: .85rem 1.1rem .7rem; display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
-.booking__field label { font-family: var(--font-ui); font-size: .62rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--stone-ink); }
+.booking__field label { font-family: var(--font-ui); font-size: 0.8rem; font-weight: 500; letter-spacing: .01em; color: var(--stone-ink); }
 .booking__field input, .booking__field select { width: 100%; min-height: 2.2rem; padding: .1rem 0; border: 0; background: transparent; font-family: var(--font-ui); font-size: .95rem; font-weight: 500; color: var(--charcoal); border-radius: 0; appearance: none; -webkit-appearance: none; cursor: pointer; }
 .booking__field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232C2F2A' stroke-width='1.3'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .2rem center; padding-right: 1.6rem; }
 .booking__field input:focus-visible, .booking__field select:focus-visible { outline: 2px solid var(--olive); outline-offset: 4px; }
@@ -63,8 +63,7 @@
 .booking__submit { background: var(--cream); display: flex; }
 .booking__submit .btn { width: 100%; min-height: 3.6rem; margin: 0; }
 .booking--bar { grid-template-columns: 1fr 1fr; }
-.booking--bar .booking__field:nth-of-type(3) { grid-column: 1 / -1; }
-.booking--bar .booking__submit { grid-column: 1 / -1; }
+.booking--bar .booking__submit .btn { padding-inline: .8rem; min-height: 100%; }
 @media (min-width: 900px) {
   .booking--bar { grid-template-columns: 1.15fr 1.15fr .8fr 1fr; }
   .booking--bar .booking__field:nth-of-type(3), .booking--bar .booking__submit { grid-column: auto; }
@@ -92,7 +91,7 @@
 .cal__title { font-family: var(--font-display); font-size: 1.1rem; }
 .cal__month-name { font-family: var(--font-display); font-size: 1.15rem; text-align: center; margin: 0 0 1rem; line-height: 2.75rem; }
 .cal table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-.cal th { font-family: var(--font-ui); font-size: .62rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--stone-ink); padding-bottom: .5rem; }
+.cal th { font-family: var(--font-ui); font-size: 0.8rem; font-weight: 500; letter-spacing: .01em; color: var(--stone-ink); padding-bottom: .5rem; }
 .cal td { padding: 0; text-align: center; }
 .cal__day { width: 100%; aspect-ratio: 1; min-height: 2.5rem; display: grid; place-items: center; background: none; border: 0; border-radius: 0; font-family: var(--font-ui); font-size: .85rem; color: var(--charcoal); position: relative; }
 .cal__day:hover:not([disabled]):not(.is-edge) { background: var(--sand); }
@@ -128,25 +127,25 @@
 
 /* ---------------------------------------------------------------- chips --- */
 .filters { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
-.chip { min-height: 2.75rem; padding: .6rem 1.3rem; background: transparent; border: 1px solid var(--line-strong); font-family: var(--font-ui); font-size: .7rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--charcoal); transition: background-color .3s, color .3s, border-color .3s; }
+.chip { min-height: 2.75rem; padding: .6rem 1.3rem; background: transparent; border: 1px solid var(--line-strong); font-family: var(--font-ui); font-size: 0.8rem; font-weight: 500; letter-spacing: .01em; color: var(--charcoal); transition: background-color .3s, color .3s, border-color .3s; }
 .chip:hover { border-color: var(--charcoal); }
 .chip[aria-pressed="true"] { background: var(--olive); border-color: var(--olive); color: var(--cream); }
 
 /* ---------------------------------------------------------------- quotes -- */
 .quote { position: relative; margin: 0; }
-.quote blockquote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); line-height: 1.4; color: var(--charcoal); margin: 0 0 1.4rem; text-wrap: balance; }
-.quote figcaption { display: flex; flex-direction: column; gap: .3rem; font-family: var(--font-ui); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; }
+.quote blockquote p { font-family: var(--font-display); font-style: normal; font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); line-height: 1.4; color: var(--charcoal); margin: 0 0 1.4rem; text-wrap: balance; }
+.quote figcaption { display: flex; flex-direction: column; gap: .3rem; font-family: var(--font-ui); font-size: 0.8rem; letter-spacing: .01em; }
 .quote__who { color: var(--olive-deep); font-weight: 600; }
 .quote__where { color: var(--stone-ink); }
 
 /* ------------------------------------------------------ meta / price etc. -- */
 .meta { display: flex; flex-wrap: wrap; gap: 1.2rem 2.2rem; margin: 1.6rem 0; padding: 1.2rem 0; border-block: 1px solid var(--line); }
 .meta div { display: flex; flex-direction: column; gap: .15rem; }
-.meta dt { font-family: var(--font-ui); font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--stone-ink); }
+.meta dt { font-family: var(--font-ui); font-size: 0.8rem; letter-spacing: .01em; color: var(--stone-ink); }
 .meta dd { font-size: 1rem; color: var(--charcoal); }
 .meta--compact { margin: 1.2rem 0; padding: .9rem 0; gap: 1rem 2rem; }
 .price { margin: 0 0 1.4rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: .5rem; }
-.price__from, .price__unit { font-family: var(--font-ui); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone-ink); }
+.price__from, .price__unit { font-family: var(--font-ui); font-size: 0.8rem; letter-spacing: .01em; color: var(--stone-ink); }
 .price__amount { font-family: var(--font-display); font-size: 1.9rem; line-height: 1; color: var(--charcoal); }
 
 .amenity-list { display: grid; gap: .9rem 2rem; grid-template-columns: 1fr; margin-top: 1.4rem; }
@@ -164,7 +163,7 @@
 @media (min-width: 960px) { .mini-grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem 2.5rem; } }
 .mini-card__link { display: block; text-decoration: none; }
 .mini-card__title { font-size: 1.5rem; margin: 1.2rem 0 .3rem; }
-.mini-card__meta { font-family: var(--font-ui); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--stone-ink); margin: 0 0 .5rem; }
+.mini-card__meta { font-family: var(--font-ui); font-size: 0.8rem; letter-spacing: .01em; color: var(--stone-ink); margin: 0 0 .5rem; }
 .mini-card__price { font-size: 1rem; margin: 0; color: var(--charcoal); }
 .mini-card__title { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .6s var(--ease); display: inline; }
 .mini-card__link:hover .mini-card__title { background-size: 100% 1px; }
@@ -194,9 +193,14 @@
 }
 
 /* ------------------------------------------------------------ booking steps */
-.steps { display: flex; flex-wrap: wrap; gap: .5rem 2.5rem; margin-bottom: 2.2rem; font-family: var(--font-ui); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone-ink); }
+.steps { display: flex; flex-wrap: wrap; gap: .5rem 2.5rem; margin-bottom: 2.2rem; font-family: var(--font-ui); font-size: 0.8rem; letter-spacing: .01em; color: var(--stone-ink); }
 .steps li { display: flex; align-items: center; gap: .7rem; }
 .steps__n { width: 1.8rem; height: 1.8rem; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; font-size: .7rem; letter-spacing: 0; }
 .steps [aria-current="step"] { color: var(--charcoal); font-weight: 600; }
 .steps [aria-current="step"] .steps__n { background: var(--olive); border-color: var(--olive); color: var(--cream); }
 .steps .is-done .steps__n { border-color: var(--olive); color: var(--olive); }
+
+/* hero text link on photography */
+.link-arrow--light, .hero .link-arrow { color: var(--cream); }
+/* gallery "view all" chip */
+.gallery__all { position: absolute; right: 1rem; bottom: 1rem; padding: .55rem 1rem; background: rgba(246, 242, 234, .94); color: var(--charcoal); font-family: var(--font-ui); font-size: .82rem; font-weight: 500; }

@@ -34,22 +34,22 @@ def book():
   <div class="container page-intro__inner">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="{url()}">Home</a></li><li><span aria-current="page">Book</span></li></ol></nav>
     {eyebrow("Book your stay")}
-    <h1 class="display" id="page-title">Check <em>availability.</em></h1>
+    <h1 class="display" id="page-title">Check availability.</h1>
     <p class="lede">Choose your dates and we will show you what is free. Breakfast is included in every room.</p>
   </div>
 </section>
 <section class="section section--tight-top book" aria-label="Availability search">
   <div class="container">
-    <div class="demo-callout" role="note"><strong>Demonstration booking flow.</strong> {C.DEMO_NOTE} The availability and prices shown are generated for the demo.</div>
+    <div class="demo-callout" role="note"><strong>Demo booking.</strong> No payment is taken and no reservation is made. The availability and rates shown are for demonstration.</div>
     {steps(0)}
     <div class="book__search">{booking_form("page", uid="book")}</div>
     <div class="book__results" data-results aria-live="polite" aria-busy="false">
-      <noscript><p class="notice">Availability results need JavaScript in this demonstration. Please enable it to continue.</p></noscript>
+      <noscript><p class="notice">Availability results need JavaScript. Please enable it to continue.</p></noscript>
     </div>
   </div>
 </section>
 {rooms_json()}'''
-    return ("book/", page("book/", "Book Your Stay", "Check availability at The Alder House, a fictional boutique hotel in the Lake District. A demonstration booking flow: no real reservations or payments.",
+    return ("book/", page("book/", "Book Your Stay", "Check availability at The Alder House in the Lake District. Choose your dates, pick a room and review your stay.",
                           body, og_key=TERR, crumbs=[("Book", "book/")]))
 
 
@@ -58,18 +58,18 @@ def summary():
   <div class="container page-intro__inner">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="{url()}">Home</a></li><li><a href="{url("book/")}">Book</a></li><li><span aria-current="page">Summary</span></li></ol></nav>
     {eyebrow("Almost there")}
-    <h1 class="display" id="page-title">Your <em>stay.</em></h1>
+    <h1 class="display" id="page-title">Your stay.</h1>
   </div>
 </section>
 <section class="section section--tight-top book" aria-label="Booking summary">
   <div class="container">
-    <div class="demo-callout" role="note"><strong>Demonstration only.</strong> This is a fictional booking flow. No payment is requested, no card details are collected and no reservation is made.</div>
+    <div class="demo-callout" role="note"><strong>Demo booking.</strong> No payment is requested, no card details are collected and no reservation is made.</div>
     {steps(2)}
-    <div data-summary aria-live="polite"><noscript><p class="notice">The booking summary needs JavaScript in this demonstration.</p></noscript></div>
+    <div data-summary aria-live="polite"><noscript><p class="notice">The booking summary needs JavaScript.</p></noscript></div>
   </div>
 </section>
 {rooms_json()}'''
-    return ("book/summary/", page("book/summary/", "Booking Summary", "Review a demonstration booking at The Alder House. Fictional: no payment or personal data is collected.",
+    return ("book/summary/", page("book/summary/", "Booking Summary", "Review your stay at The Alder House before you confirm.",
                                   body, noindex=True, crumbs=[("Book", "book/"), ("Summary", "book/summary/")]))
 
 

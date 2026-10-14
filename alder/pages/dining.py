@@ -61,11 +61,11 @@ def reservation():
   <div class="container reserve__grid">
     <div class="reserve__text" data-reveal>
       {eyebrow("Reserve a table")}
-      <h2 class="display" id="reserve-title">Join us for <em>dinner.</em></h2>
+      <h2 class="display" id="reserve-title">Join us for dinner.</h2>
       <p class="lede">Tell us when you would like to come and we will do the rest. Residents and visitors are equally welcome.</p>
       <dl class="hours">{"".join(f"<div><dt>{a}</dt><dd>{b}</dd></div>" for a, b in HOURS)}</dl>
     </div>
-    <form class="form form--card" data-demo-form data-success="Thank you. This is a demonstration form, so no table has been reserved and nothing has been sent." novalidate>
+    <form class="form form--card" data-demo-form data-success="Thank you. This is a demo form, so no table has been reserved and nothing has been sent." novalidate>
       <div class="form__grid">
         {field("res-name", "Name", required=True, autocomplete="name")}
         {field("res-email", "Email", "email", required=True, autocomplete="email")}
@@ -86,13 +86,13 @@ def reservation():
 def build():
     anchors = "".join(f'<li><a href="#{a}">{t}</a></li>' for t, a in
                       [("Breakfast", "breakfast"), ("Dinner", "dinner"), ("Sunday lunch", "sunday-lunch"), ("Drinks", "drinks")])
-    body = f'''{page_hero("Seasonal cooking. <em>No unnecessary fuss.</em>", "Alder Kitchen",
+    body = f'''{page_hero("Seasonal cooking. No unnecessary fuss.", "Alder Kitchen",
                          "The kitchen at The Alder House cooks with British produce and the people who grow it.",
                          REST, crumbs=[("Dining", None)])}
 <section class="section" aria-labelledby="kitchen-title">
   <div class="container narrow center" data-reveal>
     {eyebrow("Eat & drink")}
-    <h2 class="display" id="kitchen-title">Food rooted in the <em>landscape.</em></h2>
+    <h2 class="display" id="kitchen-title">Food rooted in the landscape.</h2>
     <p class="lede">Alder Kitchen is a relaxed room with a short menu. We buy from farmers, growers and makers within an hour of the house, cook over wood and flame where it makes sense and let the ingredients do most of the talking.</p>
     <p>Lamb from the fell, trout from the river, vegetables from a walled garden. It is simple food, done with care, and it changes with the weather.</p>
     <nav class="anchor-nav" aria-label="Menus"><ul>{anchors}</ul></nav>
@@ -102,19 +102,17 @@ def build():
 {menu("Dinner", "Wednesday to Sunday", DINNER, FISH, "dinner", flip=True, price="Two courses £38 · Three courses £46")}
 {menu("Sunday lunch", "Sundays, 12 until 4", SUNDAY, LAMB, "sunday-lunch", price="Two courses £34 · Three courses £41")}
 {menu("Drinks", "The bar", DRINKS, COCK, "drinks", flip=True)}
-{reservation()}
-<div class="container demo-wrap">{demo_banner("Alder Kitchen is fictional. The menus and prices are samples written for this concept project.")}</div>'''
+{reservation()}'''
     schema = [{
         "@context": "https://schema.org", "@type": "Restaurant", "name": "Alder Kitchen",
-        "description": "The restaurant of The Alder House, a fictional boutique hotel concept. Seasonal British cooking.",
-        "disambiguatingDescription": "Fictional concept project. Not a real restaurant.",
+        "description": "The restaurant of The Alder House: seasonal British cooking, local suppliers and a relaxed table.",
         "servesCuisine": "British", "url": abs_url("dining/"),
         "image": abs_src(REST),
         "address": {"@type": "PostalAddress", "addressRegion": "Cumbria", "addressCountry": "GB"},
         "parentOrganization": {"@type": "Hotel", "name": "The Alder House", "url": abs_url()},
     }]
     return [("dining/", page("dining/", "Alder Kitchen: Seasonal Cooking",
-                              "Alder Kitchen at The Alder House, a fictional Lake District boutique hotel: seasonal British cooking, local suppliers and a relaxed table. Sample menus and a demo reservation form.",
+                              "Alder Kitchen at The Alder House in the Lake District: seasonal British cooking, local suppliers and a relaxed table. Sample menus and table reservations.",
                               body, overlay=True, schema=schema, og_key=REST,
                               crumbs=[("Dining", "dining/")],
                               full_title="Alder Kitchen | Seasonal Dining at The Alder House"))]

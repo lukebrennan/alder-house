@@ -1,4 +1,4 @@
-/* Demonstration forms: validate accessibly, show a confirmation, send nothing anywhere. */
+/* Demo forms: validate accessibly, show a confirmation, send nothing anywhere. */
 export function initForms() {
   document.querySelectorAll("[data-demo-form]").forEach((form) => {
     const status = form.querySelector(".form-status");
@@ -31,7 +31,7 @@ export function initForms() {
         return;
       }
       form.reset();
-      if (status) { status.classList.remove("is-error"); status.textContent = form.dataset.success || "Thank you. This is a demonstration."; }
+      if (status) { status.classList.remove("is-error"); status.textContent = form.dataset.success || "Thank you. This is a demo, so nothing has been sent."; }
     });
   });
 }

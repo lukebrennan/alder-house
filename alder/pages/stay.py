@@ -9,7 +9,7 @@ from ..ui import (amenity_items, booking_form, breadcrumbs, button, demo_banner,
 
 def listing():
     rows = "".join(room_row(r, i + 1, reverse=bool(i % 2)) for i, r in enumerate(ROOMS))
-    body = f'''{page_hero("Stay", "The Alder House", "Individually designed rooms, quiet mornings and views that make it tempting to stay in bed a little longer.",
+    body = f'''{page_hero("Stay", "Rooms and suites", "Individually designed rooms, quiet mornings and views that make it tempting to stay in bed a little longer.",
                          TERR, crumbs=[("Stay", None)])}
 <section class="section section--tight-top" aria-label="Rooms">
   <div class="container">
@@ -27,13 +27,12 @@ def listing():
 <section class="section section--sand" aria-labelledby="stay-cta-title">
   <div class="container narrow center" data-reveal>
     {eyebrow("Plan your stay")}
-    <h2 class="display" id="stay-cta-title">Not sure which room? <em>Ask us.</em></h2>
+    <h2 class="display" id="stay-cta-title">Not sure which room? Ask us.</h2>
     <p class="lede">Tell us what you are celebrating, or simply what you need, and we will suggest the right room and the best time to come.</p>
     <div class="btn-row">{button("Check availability", url("book/"), "primary")}{button("Contact the house", url("contact/"), "secondary")}</div>
   </div>
-</section>
-<div class="container demo-wrap">{demo_banner("Room names, sizes and prices are invented for this concept project. Prices shown are per room, per night, including breakfast.")}</div>'''
-    return ("stay/", page("stay/", "Stay", "Six individually designed rooms and suites at The Alder House, a fictional boutique hotel in the Lake District. Breakfast included.",
+</section>'''
+    return ("stay/", page("stay/", "Stay", "Six individually designed rooms and suites at The Alder House in the Lake District. Breakfast included in every room.",
                           body, overlay=True, crumbs=[("Stay", "stay/")], og_key=TERR,
                           preload=None))
 
@@ -80,12 +79,12 @@ def room_page(r):
     {price_line(r)}
     <p class="booking-panel__note">Breakfast included. Taxes included.</p>
     {booking_form("stacked", room=r["slug"], uid="room")}
-    <p class="booking-panel__demo">Demonstration only. No payment is taken.</p>
+    <p class="booking-panel__demo">Demo booking: no payment is taken.</p>
   </aside>
 </div>
 <section class="section section--sand" aria-labelledby="related-title">
   <div class="container">
-    {section_head("Other rooms", "You might also <em>like.</em>", title_cls="display", title_id="related-title")}
+    {section_head("Other rooms", "You might also like.", title_cls="display", title_id="related-title")}
     <div class="mini-grid">{related}</div>
     <div class="section-cta" data-reveal>{text_link("View all rooms", url("stay/"))}</div>
   </div>
@@ -101,9 +100,10 @@ def room_page(r):
         "isPartOf": {"@type": "Hotel", "name": "The Alder House", "url": abs_url()},
         "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": l, "value": True} for _, l in amenity_list(r)],
     }]
-    return (path, page(path, r["name"], f'{r["name"]} at The Alder House, a fictional boutique hotel in the Lake District: {r["short"]}',
+    return (path, page(path, r["name"], f'{r["name"]} at The Alder House in the Lake District: {r["short"]}',
                        body, lightbox=True, schema=schema, og_key=r["lead"],
-                       crumbs=[("Stay", "stay/"), (r["name"], path)]))
+                       crumbs=[("Stay", "stay/"), (r["name"], path)],
+                       sticky=(f'From {money(r["price"])}', "per night · breakfast included", url(f'book/?room={r["slug"]}'), "Reserve")))
 
 
 def build():

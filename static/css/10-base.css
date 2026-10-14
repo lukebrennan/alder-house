@@ -28,27 +28,19 @@ main:focus { outline: none; }
 ::selection { background: var(--olive); color: var(--cream); }
 
 /* ---- Type ---- */
-h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.12; letter-spacing: -.01em; margin-bottom: .5em; text-wrap: balance; }
-em { font-style: italic; }
-.display { font-size: clamp(2.25rem, 1.5rem + 3.4vw, 4.25rem); line-height: 1.07; letter-spacing: -.015em; }
-.display em, .hero__title em, .statement__title em, .final-cta__title em, .page-hero__title em { font-style: italic; font-weight: 400; }
-.display em { color: var(--olive); }
-.section--dark .display em, .split__panel .display em { color: var(--gold); }
-.h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); margin-top: 2em; }
-.h4 { font-size: 1.3rem; }
-.lede { font-size: clamp(1.125rem, 1.04rem + .4vw, 1.35rem); line-height: 1.7; color: var(--ink-2); max-width: 38rem; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.1; letter-spacing: -.02em; margin-bottom: .5em; text-wrap: balance; }
+em { font-style: normal; }
+.display { font-size: clamp(2.4rem, 1.2rem + 4.2vw, 4.6rem); line-height: 1.02; letter-spacing: -.035em; }
+.h3 { font-size: clamp(1.5rem, 1.25rem + .9vw, 2rem); margin-top: 2em; letter-spacing: -.02em; }
+.h4 { font-size: 1.25rem; }
+.lede { font-size: clamp(1.1rem, 1.02rem + .35vw, 1.3rem); line-height: 1.65; color: var(--ink-2); max-width: 36rem; }
 .center .lede, .center.narrow .lede { margin-inline: auto; }
-.eyebrow {
-  display: inline-flex; align-items: center; gap: .9rem; margin: 0 0 1.4rem;
-  font-family: var(--font-ui); font-size: .72rem; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--olive);
-}
-.eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--gold); flex: none; }
+.eyebrow { display: block; margin: 0 0 1.1rem; font-family: var(--font-ui); font-size: .8rem; font-weight: 500; letter-spacing: .01em; color: var(--stone-ink); }
 .eyebrow--gold { color: var(--gold); }
-.eyebrow--light { color: var(--cream); }
-.center .eyebrow { justify-content: center; }
+.eyebrow--light { color: rgba(246, 242, 234, .86); }
 .prose p { margin-bottom: 1.4em; max-width: 40rem; }
-.prose--lede > p:first-child { font-size: 1.22rem; line-height: 1.7; }
-.fine-print { font-family: var(--font-ui); font-size: .78rem; color: var(--stone-ink); letter-spacing: .02em; }
+.prose--lede > p:first-child { font-size: 1.2rem; line-height: 1.65; }
+.fine-print { font-family: var(--font-ui); font-size: .78rem; color: var(--stone-ink); letter-spacing: .01em; }
 .section--dark .fine-print { color: var(--stone); }
 
 /* ---- Utilities ---- */
@@ -61,7 +53,6 @@ em { font-style: italic; }
 .skip-link:focus { top: 1rem; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; margin-top: 2rem; }
 .center .btn-row { justify-content: center; }
-.divider { display: block; width: 3rem; height: 1px; background: var(--gold); }
 
 .section { padding-block: var(--section); }
 .section--tight-top { padding-top: clamp(2rem, 5vw, 4rem); }

@@ -97,7 +97,7 @@ ARTICLES = [
             ("quote", "Our job was to do as little as possible, and to do it well."),
             ("h2", "A quieter kind of design"),
             ("p", "The palette comes from the view: olive, stone, clay and the dark of wet slate. Everything is chosen to feel as though it has always been there, and to improve with wear."),
-            ("p", "The Alder House is a fictional concept project, and this story is part of that fiction. But the approach, repair over replacement, local makers and a light touch, is one we would stand behind for any real house."),
+            ("p", "Repair over replacement, local makers and a light touch: it is the approach we would take with any house, and it is why The Alder House feels the way it does."),
         ],
     ),
     dict(

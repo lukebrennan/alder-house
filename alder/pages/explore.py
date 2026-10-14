@@ -66,7 +66,7 @@ def map_svg() -> str:
             f'<tspan x="{dx}" dy="14" class="map__mins">{mins} min</tspan></text></g>')
     return f'''<svg class="map__svg" viewBox="0 0 600 520" role="img" aria-labelledby="map-title map-desc" focusable="false">
   <title id="map-title">Illustrative map of nearby villages and lakes</title>
-  <desc id="map-desc">A stylised map showing The Alder House at the centre, with Grasmere, Ambleside, Windermere, Hawkshead, Keswick and Ullswater marked at approximate drive times. The map is not to scale and The Alder House is fictional.</desc>
+  <desc id="map-desc">A stylised map showing The Alder House at the centre, with Grasmere, Ambleside, Windermere, Hawkshead, Keswick and Ullswater marked at approximate drive times. The map is not to scale.</desc>
   <g class="map__contours" fill="none">
     <path d="M60 80C120 40 220 50 250 110C280 170 200 210 140 190C80 170 20 130 60 80Z"/>
     <path d="M100 95C140 70 200 80 215 115C230 150 180 170 145 160C110 150 80 125 100 95Z"/>
@@ -99,7 +99,7 @@ def map_section() -> str:
         for name, slug, mins, *_ in PLACES)
     return f'''<section class="section section--tight-top" aria-labelledby="near-title">
   <div class="container">
-    {section_head("Getting around", "Close at <em>hand.</em>", "Approximate drive times from the house. The Alder House is fictional, so these are illustrative rather than exact.", title_cls="display", title_id="near-title")}
+    {section_head("Getting around", "Close at hand.", "Approximate drive times from the house. Illustrative, and not to scale.", title_cls="display", title_id="near-title")}
     <div class="map" data-map data-reveal>
       <ul class="places" aria-label="Places and drive times">{items}</ul>
       <div class="map__figure">{map_svg()}<p class="map__caption">Illustrative map. Not to scale.</p></div>
@@ -124,7 +124,7 @@ def topic(t, i) -> str:
 
 def build():
     jump = "".join(f'<li><a href="#{t["id"]}">{t["title"]}</a></li>' for t in TOPICS)
-    body = f'''{page_hero("The Lakes are <em>outside your door.</em>", "Explore", "Fells, lakes, villages and the occasional wet afternoon. This is how we would spend the days.",
+    body = f'''{page_hero("The Lakes are outside your door.", "Explore", "Fells, lakes, villages and the occasional wet afternoon. This is how we would spend the days.",
                          AUT, crumbs=[("Explore", None)])}
 <div class="container"><nav class="anchor-nav anchor-nav--wide" aria-label="Guide sections"><ul>{jump}</ul></nav></div>
 {map_section()}
@@ -132,11 +132,10 @@ def build():
 <section class="section section--dark" aria-labelledby="explore-cta">
   <div class="container narrow center" data-reveal>
     {eyebrow("Plan a stay", "eyebrow--gold")}
-    <h2 class="display" id="explore-cta">Come for the landscape. <em>Stay for everything else.</em></h2>
+    <h2 class="display" id="explore-cta">Come for the landscape. Stay for everything else.</h2>
     <div class="btn-row">{button("Check availability", url("book/"), "primary", cls="btn--on-image")}{button("Ask for ideas", url("contact/"), "light")}</div>
   </div>
-</section>
-<div class="container demo-wrap">{demo_banner("The places mentioned are real parts of the Lake District; The Alder House is fictional. Check opening times and conditions before you set out.")}</div>'''
+</section>'''
     return [("explore/", page("explore/", "Explore the Lake District",
-                              "A guide to walking, lakes, villages, food and rainy-day ideas around The Alder House, a fictional boutique hotel in the Lake District. Illustrative drive times.",
+                              "A guide to walking, lakes, villages, food and rainy-day ideas around The Alder House in the Lake District, with approximate drive times.",
                               body, overlay=True, og_key=AUT, crumbs=[("Explore", "explore/")]))]

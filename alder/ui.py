@@ -138,23 +138,18 @@ def price_line(room) -> str:
             f'<span class="price__unit">per night</span></p>')
 
 
-def room_feature(room, index, reverse=False, first=False) -> str:
-    """Editorial room preview: oversized photograph, a quiet column of text."""
+def room_tile(room) -> str:
+    """Clean photograph-led tile: image first, then name, price and a one-line summary."""
     href = url(f'stay/{room["slug"]}/')
-    side = " feature--reverse" if reverse else ""
-    ratio = (5, 4)
-    return f'''<article class="feature{side}" data-reveal>
-  <a class="feature__media" href="{href}" tabindex="-1" aria-hidden="true">
-    {media(room["lead"], ratio, sizes="(min-width: 960px) 58vw, 100vw", cls="hover-zoom", loading="lazy")}
+    return f'''<article class="tile" data-reveal>
+  <a class="tile__link" href="{href}">
+    {media(room["lead"], (4, 5), sizes="(min-width: 1000px) 31vw, (min-width: 640px) 48vw, 100vw", cls="hover-zoom")}
+    <div class="tile__body">
+      <h3 class="tile__title">{room["name"]}</h3>
+      <p class="tile__price">From {money(room["price"])}</p>
+      <p class="tile__meta">Sleeps {room["sleeps"]} · {room["bed"]} · {room["view"]}</p>
+    </div>
   </a>
-  <div class="feature__body">
-    <p class="feature__index" aria-hidden="true">0{index}</p>
-    <h3 class="feature__title"><a href="{href}">{room["name"]}</a></h3>
-    <p class="feature__text">{room["short"]}</p>
-    <dl class="meta meta--compact"><div><dt>Sleeps</dt><dd>{room["sleeps"]}</dd></div><div><dt>Bed</dt><dd>{room["bed"]}</dd></div></dl>
-    {price_line(room)}
-    {button("View room", href, "secondary", cls="feature__cta", aria_label=f"View {room['name']}")}
-  </div>
 </article>'''
 
 
@@ -168,7 +163,6 @@ def room_row(room, index, reverse=False) -> str:
     {media(room["lead"], (4, 3), sizes="(min-width: 960px) 55vw, 100vw", cls="hover-zoom")}
   </a>
   <div class="room-row__body">
-    <p class="eyebrow">Room 0{index}</p>
     <h2 class="room-row__title"><a href="{href}">{room["name"]}</a></h2>
     <p class="room-row__tagline">{room["tagline"]}</p>
     <p>{room["short"]}</p>
@@ -200,16 +194,19 @@ def amenity_items(room) -> str:
 
 def gallery(room) -> str:
     """Photo grid; each tile opens the lightbox (see lightbox.js)."""
+    count = len(room["gallery"])
     tiles = []
     for n, key in enumerate(room["gallery"]):
-        big = src(key, 2400)
+        big = src(key, 2000)
         thumb_ratio = (4, 3) if n else (3, 2)
         sizes = "(min-width: 960px) 40vw, 100vw" if n == 0 else "(min-width: 960px) 20vw, 50vw"
+        alt = escape(alt_for(key), quote=True)
+        chip = f'<span class="gallery__all">View all {count} photos</span>' if n == 0 else ""
+        picture = media(key, thumb_ratio, sizes=sizes, cls="hover-zoom", loading="eager" if n == 0 else "lazy", reveal=False)
         tiles.append(
-            f'<button type="button" class="gallery__tile gallery__tile--{n}" data-lightbox="{big}" '
-            f'data-alt="{escape(alt_for(key), quote=True)}" data-caption="{escape(room["name"])} — photograph {n+1} of {len(room["gallery"])}" '
-            f'aria-label="Open photograph {n+1} of {len(room["gallery"])}: {escape(alt_for(key), quote=True)}">'
-            f'{media(key, thumb_ratio, sizes=sizes, cls="hover-zoom", loading="eager" if n == 0 else "lazy", reveal=False)}</button>')
+            f'<button type="button" class="gallery__tile gallery__tile--{n}" data-lightbox="{big}" data-alt="{alt}" '
+            f'data-caption="{escape(room["name"])}, photograph {n + 1} of {count}" '
+            f'aria-label="Open photograph {n + 1} of {count}: {alt}">{picture}{chip}</button>')
     return f'<div class="gallery" data-gallery>{"".join(tiles)}</div>'
 
 
@@ -232,10 +229,11 @@ def journal_card(a, variant="default") -> str:
 
 
 # ------------------------------------------------------- testimonials ------
-def testimonial(quote, who, where="Fictional guest review") -> str:
+def testimonial(quote, who, where=None) -> str:
+    cap = f'<span class="quote__where">{where}</span>' if where else ""
     return f'''<figure class="quote" data-reveal>
   <blockquote><p>{quote}</p></blockquote>
-  <figcaption><span class="quote__who">{who}</span><span class="quote__where">{where}</span></figcaption>
+  <figcaption><span class="quote__who">{who}</span>{cap}</figcaption>
 </figure>'''
 
 
@@ -289,14 +287,14 @@ def booking_form(variant="bar", room=None, uid="b") -> str:
   </div>
   <div class="booking__field">
     <label for="{uid}-guests">Guests</label>
-    <select id="{uid}-guests" name="guests">{"".join(f'<option value="{v}">{t}</option>' for v, t in guest_opts)}</select>
+    <select id="{uid}-guests" name="guests">{"".join(f'<option value="{v}"{" selected" if v == 2 else ""}>{t}</option>' for v, t in guest_opts)}</select>
   </div>
   <div class="booking__submit">{submit_button("Search availability", "primary")}</div>
 </form>'''
 
 
 def newsletter_form(uid="nl") -> str:
-    return f'''<form class="newsletter" data-demo-form data-success="Thank you. This is a demonstration, so nothing has been sent and your address has not been stored." novalidate>
+    return f'''<form class="newsletter" data-demo-form data-success="Thanks for signing up. This is a demo, so nothing has been sent." novalidate>
   <label class="visually-hidden" for="{uid}-email">Email address</label>
   <div class="newsletter__row">
     <input id="{uid}-email" name="email" type="email" placeholder="Your email address" autocomplete="email" required>
@@ -307,7 +305,7 @@ def newsletter_form(uid="nl") -> str:
 
 
 def demo_banner(text=None) -> str:
-    text = text or C.DEMO_NOTE
+    text = text or C.BOOKING_NOTE
     return f'<p class="demo-note">{icon("pin", "icon", 18)}<span>{text}</span></p>'
 
 

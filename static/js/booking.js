@@ -1,4 +1,4 @@
-/* Demonstration booking flow: availability results and a mock summary.
+/* Demo booking flow: availability results and a mock summary.
    Everything is generated in the browser. Nothing is stored or sent anywhere. */
 const base = document.documentElement.dataset.base || "";
 const gbp = (n) => `£${n.toLocaleString("en-GB")}`;
@@ -85,7 +85,7 @@ function renderResults(root) {
     </div>
     <div class="results">${items}</div>
     ${hidden ? `<p class="fine-print">${plural(hidden, "room")} not shown because ${hidden === 1 ? "it sleeps" : "they sleep"} fewer than ${p.guests} guests.</p>` : ""}
-    <p class="fine-print">Rates include breakfast and taxes. Friday and Saturday nights carry a ${gbp(WEEKEND_UPLIFT)} supplement. Demonstration pricing only.</p>`;
+    <p class="fine-print">Rates include breakfast and taxes. Friday and Saturday nights carry a ${gbp(WEEKEND_UPLIFT)} supplement.</p>`;
 }
 
 function renderSummary(root) {
@@ -113,8 +113,8 @@ function renderSummary(root) {
           <div class="field"><label for="g-arrival">Estimated arrival</label><select id="g-arrival">${times}</select></div>
         </div>
         <div class="field"><label for="g-notes">Special requests</label><textarea id="g-notes" rows="4"></textarea></div>
-        <div class="demo-callout" role="note"><strong>No payment is taken.</strong> This is a fictional booking, so there are no card fields and nothing is sent or stored. Please do not enter real personal details.</div>
-        <button class="btn btn--primary" type="submit"><span>Confirm demonstration booking</span></button>
+        <div class="demo-callout" role="note"><strong>No payment is taken.</strong> This is a demo booking, so there are no card fields and nothing is sent or stored. Please do not enter real personal details.</div>
+        <button class="btn btn--primary" type="submit"><span>Confirm booking</span></button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -152,11 +152,11 @@ function renderSummary(root) {
     const ref = "AH-DEMO-" + Math.random().toString(36).slice(2, 8).toUpperCase();
     const first = esc(form.querySelector("#g-first").value.trim());
     root.querySelector("#summary-main").innerHTML = `<div class="confirmation" role="status">
-      <p class="eyebrow">Demonstration confirmation</p>
+      <p class="eyebrow">Booking confirmed</p>
       <h2 id="confirm-title" tabindex="-1">Thank you${first ? `, ${first}` : ""}.</h2>
-      <p>If this were a real hotel, your stay in ${esc(room.name)} would now be confirmed.</p>
+      <p>Your stay in ${esc(room.name)} is confirmed for these dates.</p>
       <p class="confirmation__ref">Reference ${ref}</p>
-      <p class="fine-print">Nothing has been reserved, no confirmation email has been sent and none of the details you entered have been stored.</p>
+      <p class="fine-print">This is a demo, so nothing has actually been reserved, no email has been sent and none of the details you entered have been stored.</p>
       <div class="btn-row"><a class="btn btn--primary" href="${base}/"><span>Back to the home page</span></a><a class="btn btn--secondary" href="${base}/stay/"><span>Browse the rooms</span></a></div>
     </div>`;
     root.querySelector("#confirm-title").focus();

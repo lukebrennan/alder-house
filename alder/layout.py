@@ -8,7 +8,7 @@ from html import escape
 
 from . import config as C
 from .config import url, abs_url
-from .images import SIZES, og_image, src
+from .images import og_image, srcset
 from .ui import icon, newsletter_form, button
 
 FONTS = (
@@ -74,7 +74,7 @@ def header(path, overlay) -> str:
     <nav class="menu__nav" aria-label="Main menu"><ul>{_nav_links(path, "menu__link")}</ul></nav>
     <div class="menu__foot">
       {button("Book Your Stay", url("book/"), "light", arrow=True)}
-      <p class="menu__meta">Boutique Hotel · Lake District<br><a href="tel:{C.PHONE_HREF}">{C.PHONE}</a> <span class="menu__demo">(fictional)</span></p>
+      <p class="menu__meta">Boutique Hotel · Lake District<br><a href="tel:{C.PHONE_HREF}">{C.PHONE}</a></p>
     </div>
   </div>
 </dialog>'''
@@ -96,8 +96,8 @@ def footer() -> str:
     <nav class="site-footer__col" aria-label="Information"><h2 class="site-footer__heading">Information</h2><ul>{second}</ul>
       <h2 class="site-footer__heading site-footer__heading--spaced">Follow</h2>
       <ul class="social">
-        <li><a href="https://www.instagram.com/" rel="noopener" aria-label="Instagram (placeholder link)">{icon("instagram", "icon", 20)}<span>Instagram</span></a></li>
-        <li><a href="https://www.pinterest.com/" rel="noopener" aria-label="Pinterest (placeholder link)">{icon("pinterest", "icon", 20)}<span>Pinterest</span></a></li>
+        <li><a href="https://www.instagram.com/" rel="noopener" aria-label="Instagram">{icon("instagram", "icon", 20)}<span>Instagram</span></a></li>
+        <li><a href="https://www.pinterest.com/" rel="noopener" aria-label="Pinterest">{icon("pinterest", "icon", 20)}<span>Pinterest</span></a></li>
       </ul>
     </nav>
     <div class="site-footer__col site-footer__news">
@@ -107,11 +107,19 @@ def footer() -> str:
     </div>
   </div>
   <div class="site-footer__legal">
-    <p><strong>The Alder House is a fictional portfolio project.</strong> It is not a real hotel; rooms, prices, reviews and contact details are invented. Social links are placeholders.</p>
-    <p>&copy; 2026 The Alder House concept. Photography from <a href="https://unsplash.com/" rel="noopener">Unsplash</a> contributors.</p>
+    <p>&copy; 2026 The Alder House. Photography from <a href="https://unsplash.com/" rel="noopener">Unsplash</a> contributors.</p>
     <p class="site-footer__credit">Website designed and developed by Luke Brennan</p>
   </div>
 </footer>'''
+
+
+def book_bar(sticky) -> str:
+    """Mobile-only booking bar that slides in once the visitor has scrolled past the hero."""
+    if sticky is None:
+        return ""
+    strong, small, href, label = sticky
+    return (f'<div class="book-bar" data-book-bar><div class="book-bar__text"><strong>{strong}</strong><span>{small}</span></div>'
+            f'{button(label, href, "primary")}</div>')
 
 
 LIGHTBOX = f'''<dialog class="lightbox" aria-label="Photograph viewer" data-lightbox-dialog>
@@ -124,7 +132,7 @@ LIGHTBOX = f'''<dialog class="lightbox" aria-label="Photograph viewer" data-ligh
 
 def page(path, title, description, body, *, overlay=False, og_key=EXT, og_type="website",
          schema=None, noindex=False, lightbox=False, preload=None, body_class="", crumbs=None,
-         full_title=None, extra_head="", extra_body="") -> str:
+         full_title=None, extra_head="", extra_body="", sticky="default") -> str:
     full = full_title or (f"{title} | The Alder House" if path else title)
     canonical = abs_url(path)
     schema = list(schema or [])
@@ -132,10 +140,11 @@ def page(path, title, description, body, *, overlay=False, og_key=EXT, og_type="
         schema.append(breadcrumb_ld([("Home", "")] + crumbs))
     robots = "noindex, follow" if noindex else "index, follow, max-image-preview:large"
     preload_tag = ""
-    if preload:  # an image key: preload the right rendition for the viewport and pixel density
-        srcset = ", ".join(f"{src(preload, s)} {s}w" for s in SIZES)
-        preload_tag = f'<link rel="preload" as="image" href="{src(preload, 1600)}" imagesrcset="{srcset}" imagesizes="100vw" fetchpriority="high">'
+    if preload:  # an image key: preload the AVIF rendition that matches the viewport and pixel density
+        preload_tag = f'<link rel="preload" as="image" type="image/avif" imagesrcset="{srcset(preload, "avif")}" imagesizes="100vw" fetchpriority="high">'
     og = og_image(og_key)
+    if sticky == "default":
+        sticky = ("Stay a little longer", "Breakfast included in every room", url("book/"), "Check availability")
     return f'''<!doctype html>
 <html lang="en-GB" data-base="{C.BASE}">
 <head>
@@ -153,7 +162,7 @@ def page(path, title, description, body, *, overlay=False, og_key=EXT, og_type="
 <meta property="og:description" content="{escape(description, quote=True)}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{og}">
-<meta property="og:image:alt" content="Mountains and a still lake in the English Lake District">
+<meta property="og:image:alt" content="Sunset over Windermere in the English Lake District">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{url("favicon.ico")}" sizes="48x48">
 <link rel="icon" href="{url("favicon-32x32.png")}" type="image/png" sizes="32x32">
@@ -177,6 +186,7 @@ def page(path, title, description, body, *, overlay=False, og_key=EXT, og_type="
 </main>
 {footer()}
 {LIGHTBOX if lightbox else ""}
+{book_bar(sticky)}
 {extra_body}
 </body>
 </html>

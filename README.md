@@ -1,10 +1,7 @@
 # The Alder House
 
-A fictional boutique hotel in the English Lake District, built as a portfolio project: a complete, responsive,
-accessible static website with a front-end booking demonstration.
-
-**The Alder House is not a real business.** Rooms, prices, reviews, menus, the address, phone number and email
-are all invented, and nothing on the site collects, stores or sends personal or payment data.
+A website for The Alder House, a boutique hotel in the English Lake District: a complete, responsive, accessible
+static site with a front-end booking demo. Rooms, rates, menus, reviews and contact details are placeholder content.
 
 ## What's inside
 
@@ -32,7 +29,7 @@ python3 build.py           # build only
 ```
 build.py            Builds every page into dist/, concatenates + minifies CSS, writes sitemap/robots/manifest
 alder/
-  config.py         Names, fictional contact details, URL helpers (BASE_PATH / SITE_ORIGIN aware)
+  config.py         Names, placeholder contact details, URL helpers (BASE_PATH / SITE_ORIGIN aware)
   images.py         Photography manifest: file names, alt text, focal points
   rooms.py          Room data (prices, amenities, galleries)
   journal.py        Journal articles
@@ -73,17 +70,17 @@ For a custom domain, set `SITE_ORIGIN` to the domain and `BASE_PATH` to empty in
   scroll-driven parallax with no JavaScript, and cross-document view transitions where supported.
 - **SEO.** Unique titles, descriptions, canonicals and Open Graph tags; `Hotel`, `HotelRoom`, `Restaurant`,
   `Article` and `BreadcrumbList` structured data. There is deliberately no review markup, no street address and no
-  real telephone number in the schema, because the hotel is fictional. `/book/summary/` is `noindex`.
+  real telephone number in the schema, because the contact details are placeholders. `/book/summary/` is `noindex`.
 - **Booking demo.** Availability and prices are generated deterministically in the browser. There are no payment
   fields and nothing is stored or sent.
 
 ## Photography
 
-All 24 photographs are high-resolution images from [Unsplash](https://unsplash.com/) contributors, used under the
-Unsplash licence. Each lives in `static/img/photos/` as three WebP renditions (`<name>-800.webp`, `-1600.webp`,
-`-2400.webp`) and is served with a `srcset`, so phones get small files and retina desktops get sharp ones. The hero
-is preloaded with its `srcset`.
+All 24 photographs are from [Unsplash](https://unsplash.com/) contributors, used under the Unsplash licence. Each
+lives in `static/img/photos/` as **AVIF** (served first) and **WebP** (fallback) at three widths (640, 1280 and
+2000px), so phones download small files and retina desktops get sharp ones. The hero is preloaded with its AVIF
+`srcset`. A typical page pulls a few hundred KB of imagery.
 
-To swap a photograph, replace its three files (keeping the names) or add new files and update the manifest in
-`alder/images.py`, which also holds the alt text and focal point for each image. The original source IDs are listed
+To swap a photograph, replace its six files (keeping the names) or add new ones and update the manifest in
+`alder/images.py`, which also holds the alt text and focal point for each image. The original Unsplash IDs are listed
 in `static/img/photos/SOURCES.md`.

@@ -1,9 +1,10 @@
 """Photography manifest and responsive <img> helper.
 
-Photographs live in static/img/photos/ in three sizes per image
-(<name>-800.webp, <name>-1600.webp, <name>-2400.webp). Keys are the file names
-without the size suffix, so every image has a descriptive filename. To swap a
-photo, replace its three files (keep the names) or edit the manifest below.
+Photographs live in static/img/photos/ as AVIF (primary) and WebP (fallback) at
+three widths: <name>-640.avif, -1280.avif, -2000.avif and the same for .webp.
+Keys are the file names without the size suffix, so every image has a descriptive
+filename. To swap a photo, replace its six files (keep the names) or edit the
+manifest below.
 """
 from __future__ import annotations
 
@@ -65,18 +66,26 @@ _RAW = {
 }
 
 IMAGES = {k: dict(w=v[0], h=v[1], alt=v[2], fx=v[3], fy=v[4]) for k, v in _RAW.items()}
-SIZES = (800, 1600, 2400)
+SIZES = (640, 1280, 2000)
 
 
-def src(key: str, width: int = 1600, **_ignored) -> str:
+def _file(key: str, size: int, ext: str) -> str:
+    return f"assets/img/photos/{key}-{size}.{ext}"
+
+
+def src(key: str, width: int = 1280, ext: str = "webp", **_ignored) -> str:
     """Root-relative URL of the smallest rendition that is at least `width` wide."""
     size = next((s for s in SIZES if s >= width), SIZES[-1])
-    return url(f"assets/img/photos/{key}-{size}.webp")
+    return url(_file(key, size, ext))
 
 
-def abs_src(key: str, width: int = 1600) -> str:
+def abs_src(key: str, width: int = 1280) -> str:
     size = next((s for s in SIZES if s >= width), SIZES[-1])
-    return abs_url(f"assets/img/photos/{key}-{size}.webp")
+    return abs_url(_file(key, size, "webp"))
+
+
+def srcset(key: str, ext: str) -> str:
+    return ", ".join(f"{url(_file(key, s, ext))} {s}w" for s in SIZES)
 
 
 def alt_for(key: str) -> str:
@@ -85,16 +94,16 @@ def alt_for(key: str) -> str:
 
 def img(key, ratio=None, sizes="100vw", widths=None, alt=None, loading="lazy", cls="", priority=False,
         mobile_ratio=None) -> str:
-    """<img> with a srcset, intrinsic dimensions (no layout shift) and a focal-point crop."""
+    """<picture> with AVIF then WebP, intrinsic dimensions (no layout shift) and a focal-point crop."""
     d = IMAGES[key]
     a = escape(alt if alt is not None else d["alt"], quote=True)
     load = 'fetchpriority="high" loading="eager"' if priority else f'loading="{loading}"'
     c = f' class="{cls}"' if cls else ""
     pos = f'style="object-position:{round(d["fx"] * 100)}% {round(d["fy"] * 100)}%" '
-    srcset = ", ".join(f"{src(key, s)} {s}w" for s in SIZES)
-    return (f'<img src="{src(key, 1600)}" srcset="{srcset}" sizes="{sizes}" width="{d["w"]}" height="{d["h"]}" '
-            f'alt="{a}" {pos}decoding="async" {load}{c}>')
+    return (f'<picture><source type="image/avif" srcset="{srcset(key, "avif")}" sizes="{sizes}">'
+            f'<img src="{src(key, 1280)}" srcset="{srcset(key, "webp")}" sizes="{sizes}" width="{d["w"]}" height="{d["h"]}" '
+            f'alt="{a}" {pos}decoding="async" {load}{c}></picture>')
 
 
 def og_image(key: str) -> str:
-    return abs_src(key, 1600)
+    return abs_src(key, 1280)

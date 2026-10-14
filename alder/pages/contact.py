@@ -17,13 +17,13 @@ def build():
   <div class="container page-intro__inner">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="{url()}">Home</a></li><li><span aria-current="page">Contact</span></li></ol></nav>
     {eyebrow("Contact")}
-    <h1 class="display" id="page-title">Get in touch, <em>or drop in.</em></h1>
+    <h1 class="display" id="page-title">Get in touch, or drop in.</h1>
     <p class="lede">Questions about a room, a special occasion or a dog? We read every message and reply within a day.</p>
   </div>
 </section>
 <section class="section section--tight-top" aria-label="Contact details and form">
   <div class="container contact-grid">
-    <form class="form" data-demo-form data-success="Thank you. This is a demonstration form, so your message has not been sent." novalidate>
+    <form class="form" data-demo-form data-success="Thank you. This is a demo form, so your message has not been sent." novalidate>
       <h2 class="h3">Send us a message</h2>
       <div class="form__grid">
         {field("c-name", "Name", required=True, autocomplete="name")}
@@ -39,9 +39,9 @@ def build():
     <aside class="contact-card" aria-label="The Alder House details">
       <h2 class="h3">The house</h2>
       <ul class="contact-list">
-        <li>{icon("pin", "icon", 22)}<div><strong>Address</strong><address>{addr}</address><span class="tag">Fictional address for demonstration</span></div></li>
-        <li>{icon("phone", "icon", 22)}<div><strong>Telephone</strong><a href="tel:{C.PHONE_HREF}">{C.PHONE}</a><span class="tag">Fictional number</span></div></li>
-        <li>{icon("mail", "icon", 22)}<div><strong>Email</strong><a href="mailto:{C.EMAIL}">{C.EMAIL}</a><span class="tag">Fictional address</span></div></li>
+        <li>{icon("pin", "icon", 22)}<div><strong>Address</strong><address>{addr}</address></div></li>
+        <li>{icon("phone", "icon", 22)}<div><strong>Telephone</strong><a href="tel:{C.PHONE_HREF}">{C.PHONE}</a></div></li>
+        <li>{icon("mail", "icon", 22)}<div><strong>Email</strong><a href="mailto:{C.EMAIL}">{C.EMAIL}</a></div></li>
         <li>{icon("clock", "icon", 22)}<div><strong>Check-in</strong>From 3pm. Check-out by 11am.<br>Reception is staffed 8am to 10pm.</div></li>
       </ul>
     </aside>
@@ -51,8 +51,8 @@ def build():
   <div class="container directions">
     <div data-reveal>
       {eyebrow("Directions")}
-      <h2 class="display" id="dir-title">Finding <em>the house.</em></h2>
-      <p class="lede">The Alder House is fictional, so there is nowhere to drive to. If it were real, this is how we would tell you to arrive.</p>
+      <h2 class="display" id="dir-title">Finding the house.</h2>
+      <p class="lede">A few notes on arriving, whether you come by car, by train or on foot.</p>
     </div>
     <div class="directions__cols" data-reveal>
       <div><h3 class="h4">By car</h3><p>Follow the signs for the Lakes and take the lane signed for the village. The house is the last on the left, with a slate sign and a green gate. Parking is free.</p></div>
@@ -63,12 +63,11 @@ def build():
 </section>
 <section class="section" aria-labelledby="faq-title">
   <div class="container narrow">
-    {section_head("Good to know", "Quick <em>questions.</em>", title_cls="display", title_id="faq-title")}
+    {section_head("Good to know", "Quick questions.", title_cls="display", title_id="faq-title")}
     {accordion(FAQ_TEASER, "cfaq")}
     <p class="center" data-reveal>{text_link("Read all the FAQs", url("faqs/"))}</p>
   </div>
-</section>
-<div class="container demo-wrap">{demo_banner("Every contact detail on this page is invented. Please do not try to call or write.")}</div>'''
+</section>'''
     return [("contact/", page("contact/", "Contact",
-                              "Contact The Alder House, a fictional boutique hotel concept in the Lake District. Demo contact form, directions, check-in information and FAQs.",
+                              "Contact The Alder House in the Lake District: send a message, find directions, and read check-in information and FAQs.",
                               body, og_key=EVE, crumbs=[("Contact", "contact/")]))]

@@ -11,7 +11,7 @@ def listing():
     chips = '<button type="button" class="chip" aria-pressed="true" data-filter="All">All</button>' + "".join(
         f'<button type="button" class="chip" aria-pressed="false" data-filter="{c}">{c}</button>' for c in CATEGORIES)
     cards = "".join(journal_card(a, "feature" if i == 0 else "default") for i, a in enumerate(ARTICLES))
-    body = f'''{page_hero("Notes from the <em>Lakes.</em>", "The Journal", "Walks, recipes, small discoveries and stories from the house.",
+    body = f'''{page_hero("Notes from the Lakes.", "The Journal", "Walks, recipes, small discoveries and stories from the house.",
                          WTF, crumbs=[("Journal", None)])}
 <section class="section section--tight-top" aria-label="Articles">
   <div class="container">
@@ -22,14 +22,13 @@ def listing():
       <aside class="journal-grid__note" data-journal-note data-reveal>
         {eyebrow("Next issue")}
         <p class="display">More notes from the Lakes arrive with the seasons.</p>
-        <p>Subscribe in the footer to have them sent to you, once the demo becomes real.</p>
+        <p>Subscribe in the footer and we will send them your way.</p>
       </aside>
     </div>
   </div>
-</section>
-<div class="container demo-wrap">{demo_banner("The Journal is fictional content written for this concept project.")}</div>'''
+</section>'''
     return ("journal/", page("journal/", "The Journal",
-                             "Notes from the Lakes: walks, food, the house and the landscape, from The Alder House, a fictional boutique hotel in the Lake District.",
+                             "Notes from the Lakes: walks, food, the house and the landscape, from The Alder House in the Lake District.",
                              body, overlay=True, og_key=WTF, crumbs=[("Journal", "journal/")]))
 
 
@@ -65,20 +64,19 @@ def article_page(a):
 </div>
 <section class="section section--sand" aria-labelledby="related-title">
   <div class="container">
-    {section_head("Keep reading", "More from the <em>Journal.</em>", title_cls="display", title_id="related-title")}
+    {section_head("Keep reading", "More from the Journal.", title_cls="display", title_id="related-title")}
     <div class="mini-grid">{rel}</div>
     <div class="section-cta" data-reveal>{text_link("All articles", url("journal/"))}</div>
   </div>
 </section>
-</article>
-<div class="container demo-wrap">{demo_banner("This article is fictional content written for the concept project.")}</div>'''
+</article>'''
     schema = [{
         "@context": "https://schema.org", "@type": "Article", "headline": a["title"],
         "description": a["excerpt"], "datePublished": a["date"], "dateModified": a["date"],
         "inLanguage": "en-GB", "mainEntityOfPage": abs_url(path),
         "image": abs_src(a["hero"]),
-        "author": {"@type": "Organization", "name": "The Alder House (fictional)"},
-        "publisher": {"@type": "Organization", "name": "The Alder House (fictional)", "url": abs_url()},
+        "author": {"@type": "Organization", "name": "The Alder House"},
+        "publisher": {"@type": "Organization", "name": "The Alder House", "url": abs_url()},
         "articleSection": a["category"],
     }]
     return (path, page(path, a["title"], a["excerpt"], body, og_type="article", schema=schema, og_key=a["hero"],
