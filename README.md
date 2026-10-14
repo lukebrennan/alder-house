@@ -39,8 +39,10 @@ alder/
   pages/            One module per page or section
 static/
   css/              tokens → base → layout → components → sections → pages → motion
-  js/               Small ES modules: header, reveal, accordion, lightbox, datepicker, forms, map, filter, booking
+  js/               Small ES modules (curtain, split, header, reveal, lightbox, datepicker, forms, map, filter, booking, prefetch);
+                    build.py bundles them into one script
   img/photos/       Photography, three WebP sizes each (see SOURCES.md)
+  fonts/            Self-hosted WOFF2 fonts
   favicons/         Favicon set from the supplied brand assets
 .github/workflows/  GitHub Pages deployment
 ```
@@ -65,9 +67,11 @@ For a custom domain, set `SITE_ORIGIN` to the domain and `BASE_PATH` to empty in
 - **Accessibility.** Semantic landmarks, one `h1` per page, skip link, visible focus, a `<dialog>`-based menu and
   lightbox (focus trap, Esc, focus restore), keyboard-operable date picker and accordion, labelled forms with
   inline errors, and `prefers-reduced-motion` support.
-- **Performance.** No frameworks or runtime dependencies. Native ES modules, WebP photography with intrinsic
-  dimensions (no layout shift), lazy loading below the fold, hero preloaded, fonts via `display=swap`, CSS
-  scroll-driven parallax with no JavaScript, and cross-document view transitions where supported.
+- **Performance.** No frameworks or runtime dependencies. Fonts are self-hosted WOFF2 (Instrument Serif and
+  Hanken Grotesk, about 50 KB together) and preloaded, so there are no third-party font requests. Photographs are
+  AVIF with a WebP fallback, with the colour grade baked into the files so no CSS filter runs at scroll time. All
+  JavaScript is bundled into one deferred script, CSS is pruned and minified, CSS and JS URLs carry a content hash,
+  internal pages are prefetched on hover (speculation rules plus a script fallback), and the hero image is preloaded.
 - **SEO.** Unique titles, descriptions, canonicals and Open Graph tags; `Hotel`, `HotelRoom`, `Restaurant`,
   `Article` and `BreadcrumbList` structured data. There is deliberately no review markup, no street address and no
   real telephone number in the schema, because the contact details are placeholders. `/book/summary/` is `noindex`.

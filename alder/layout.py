@@ -11,9 +11,9 @@ from .config import url, abs_url
 from .images import og_image, srcset
 from .ui import icon, newsletter_form, button
 
-FONTS = (
-    "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400"
-    "&family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
+FONT_PRELOADS = (
+    ("assets/fonts/instrument-serif-normal.woff2", "font/woff2"),
+    ("assets/fonts/hanken-grotesk-variable.woff2", "font/woff2"),
 )
 
 NAV = [("Stay", "stay/"), ("Dining", "dining/"), ("Explore", "explore/"),
@@ -22,6 +22,14 @@ NAV = [("Stay", "stay/"), ("Dining", "dining/"), ("Explore", "explore/"),
 
 def ld(data) -> str:
     return f'<script type="application/ld+json">{json.dumps(data, ensure_ascii=False, separators=(",", ":"))}</script>'
+
+
+def ld_spec() -> str:
+    """Speculation rules: let Chromium prefetch internal pages the moment a visitor shows intent."""
+    pattern = f"{C.BASE}/*" if C.BASE else "/*"
+    rules = {"prefetch": [{"where": {"and": [{"href_matches": pattern}, {"not": {"href_matches": f"{C.BASE}/book/summary/*"}}]},
+                           "eagerness": "moderate"}]}
+    return f'<script type="speculationrules">{json.dumps(rules, separators=(",", ":"))}</script>'
 
 
 def breadcrumb_ld(items) -> dict:
@@ -155,6 +163,8 @@ def page(path, title, description, body, *, overlay=False, og_key=EXT, og_type="
     if preload:  # an image key: preload the AVIF rendition that matches the viewport and pixel density
         preload_tag = f'<link rel="preload" as="image" type="image/avif" imagesrcset="{srcset(preload, "avif")}" imagesizes="100vw" fetchpriority="high">'
     og = og_image(og_key)
+    speculation = ld_spec()
+    font_preloads = "\n".join(f'<link rel="preload" href="{url(p)}" as="font" type="{t}" crossorigin>' for p, t in FONT_PRELOADS)
     if sticky == "default":
         sticky = ("Stay a little longer", "Breakfast included in every room", url("book/"), "Check availability")
     return f'''<!doctype html>
@@ -180,14 +190,12 @@ def page(path, title, description, body, *, overlay=False, og_key=EXT, og_type="
 <link rel="icon" href="{url("favicon-32x32.png")}" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="{url("apple-touch-icon-180x180.png")}">
 <link rel="manifest" href="{url("manifest.webmanifest")}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+{font_preloads}
 {preload_tag}
-<link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="{url(C.CSS_PATH)}">
 {BOOT}
-<script type="module" src="{url(C.JS_PATH)}"></script>
+{speculation}
+<script defer src="{url(C.JS_PATH)}"></script>
 {"".join(ld(s) for s in schema)}
 {extra_head}
 </head>

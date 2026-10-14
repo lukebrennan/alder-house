@@ -31,11 +31,11 @@
 .statement, .final-cta { position: relative; isolation: isolate; display: grid; place-items: center; text-align: center; color: var(--cream); overflow: hidden; background: #3b4237; min-height: clamp(30rem, 84vh, 52rem); }
 .statement__scrim, .final-cta__scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20, 22, 19, .32), rgba(20, 22, 19, .52)); }
 .statement__content, .final-cta__content { padding: 6rem var(--gutter); max-width: 66rem; }
-.statement__title, .final-cta__title { font-size: clamp(3rem, .8rem + 8.4vw, 8.6rem); line-height: .94; letter-spacing: -.045em; margin-bottom: 1.4rem; text-shadow: 0 2px 50px rgba(0, 0, 0, .25); }
+.statement__title, .final-cta__title { font-size: clamp(3rem, .8rem + 8.4vw, 8.6rem); line-height: .94; letter-spacing: -.02em; margin-bottom: 1.4rem; text-shadow: 0 2px 50px rgba(0, 0, 0, .25); }
 .statement__text, .final-cta__text { font-family: var(--font-body); font-style: normal; font-size: clamp(1.1rem, 1rem + .5vw, 1.45rem); margin: 0 0 2rem; color: #F3EEE3; }
 .statement--short { min-height: clamp(22rem, 52vh, 34rem); }
 .statement__quote { margin: 0; }
-.statement__quote p { font-family: var(--font-display); font-size: clamp(1.9rem, 1.2rem + 3vw, 3.8rem); line-height: 1.1; letter-spacing: -.03em; margin: 0; text-wrap: balance; text-shadow: 0 2px 30px rgba(0, 0, 0, .3); }
+.statement__quote p { font-family: var(--font-display); font-size: clamp(1.9rem, 1.2rem + 3vw, 3.8rem); line-height: 1.1; letter-spacing: -.02em; margin: 0; text-wrap: balance; text-shadow: 0 2px 30px rgba(0, 0, 0, .3); }
 .final-cta { min-height: clamp(28rem, 74vh, 46rem); }
 .final-cta__title { font-size: clamp(2.8rem, .8rem + 7vw, 7rem); }
 
@@ -98,7 +98,7 @@
 .journal-card__title span { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .6s var(--ease); padding-bottom: .12em; }
 .journal-card__link:hover .journal-card__title span, .journal-card__link:focus-visible .journal-card__title span { background-size: 100% 1px; }
 .journal-card__excerpt { margin: 0; font-size: .98rem; line-height: 1.65; color: var(--ink-2); max-width: 34rem; }
-.journal-card--feature .journal-card__title { font-size: clamp(1.9rem, 1.3rem + 2vw, 2.9rem); letter-spacing: -.03em; }
+.journal-card--feature .journal-card__title { font-size: clamp(1.9rem, 1.3rem + 2vw, 2.9rem); letter-spacing: -.02em; }
 
 /* ------------------------------------------------------- new editorial bits */
 .hero__label { display: flex; justify-content: space-between; gap: 1rem; }

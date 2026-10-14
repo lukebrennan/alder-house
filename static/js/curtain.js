@@ -4,7 +4,7 @@
    loads behind it, and the curtain lifts once it is ready. Skipped entirely for reduced motion. */
 const root = document.documentElement;
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-const COVER_MS = 650;
+const COVER_MS = 480;
 
 function pageReady(minMs) {
   const loaded = document.readyState === "complete" ? Promise.resolve() : new Promise((r) => window.addEventListener("load", r, { once: true }));
@@ -24,7 +24,7 @@ export function initCurtain() {
   };
 
   const ready = holding
-    ? pageReady(Math.max(0, (root.classList.contains("loader") ? 1500 : 380) - (performance.now() - started))).then(lift)
+    ? pageReady(Math.max(0, (root.classList.contains("loader") ? 1000 : 200) - (performance.now() - started))).then(lift)
     : Promise.resolve(root.classList.add("is-ready"));
 
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) bindLinks();

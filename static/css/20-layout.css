@@ -3,15 +3,10 @@
 /* ---------------------------------------------------------------- media -- */
 .media { position: relative; overflow: hidden; margin: 0; background: var(--sand); aspect-ratio: var(--ratio, 3/2); }
 .media img { width: 100%; height: 100%; object-fit: cover; }
-.hover-zoom img { transition: transform 1.4s var(--ease); will-change: transform; }
+.hover-zoom img { transition: transform 1.4s var(--ease); }
 a:hover .hover-zoom img, a:focus-visible .hover-zoom img, .hover-zoom:hover img { transform: scale(1.04); }
 
-/* One colour grade for every photograph, so images from different shoots read as a single set:
-   slightly softer saturation, a touch more contrast and a warm, olive-leaning cast. */
-.media img, .hero__media img, .page-hero__media img, .statement__media img, .final-cta__media img, .gallery img, .lightbox__img {
-  filter: saturate(.84) contrast(1.04) sepia(.09) hue-rotate(-4deg) brightness(.99);
-}
-.media::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(85, 98, 75, .07), rgba(44, 47, 42, .1)); mix-blend-mode: multiply; }
+/* Photographs carry their colour grade in the image files themselves, so there is no runtime filter cost. */
 
 /* Captions: small, plain and set like a magazine credit */
 .caption { margin: .8rem 0 0; font-family: var(--font-ui); font-size: .78rem; line-height: 1.5; color: var(--stone-ink); }
@@ -66,7 +61,7 @@ a:hover .hover-zoom img, a:focus-visible .hover-zoom img, .hover-zoom:hover img 
 .menu__nav { align-self: center; padding-block: 2rem; }
 .menu__nav li { overflow: hidden; border-bottom: 1px solid var(--line-light); }
 .menu__nav li:first-child { border-top: 1px solid var(--line-light); }
-.menu__link { display: block; padding: .55rem 0; font-family: var(--font-display); font-size: clamp(2.1rem, 1.5rem + 3.4vw, 3.6rem); letter-spacing: -.03em; line-height: 1.15; text-decoration: none; transition: color .3s, padding-left .5s var(--ease), transform .8s var(--ease), opacity .8s var(--ease); }
+.menu__link { display: block; padding: .55rem 0; font-family: var(--font-display); font-size: clamp(2.1rem, 1.5rem + 3.4vw, 3.6rem); letter-spacing: -.02em; line-height: 1.15; text-decoration: none; transition: color .3s, padding-left .5s var(--ease), transform .8s var(--ease), opacity .8s var(--ease); }
 .menu__link:hover, .menu__link[aria-current="page"] { color: var(--gold); padding-left: .8rem; }
 .menu:not([open]) .menu__link { transform: translateY(100%); opacity: 0; }
 .menu[open] .menu__link { transform: none; opacity: 1; }
@@ -118,7 +113,7 @@ body:has(.menu[open]) .book-bar, body:has(.cal:not([hidden])) .book-bar { transf
 .hero__scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20, 22, 19, .5) 0%, rgba(20, 22, 19, .06) 32%, rgba(20, 22, 19, .2) 55%, rgba(20, 22, 19, .78) 100%); }
 .hero__content { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; padding-top: calc(var(--header-h) + 3rem); padding-bottom: clamp(1.5rem, 3.5vw, 2.5rem); }
 .hero__label { margin: 0 0 1.4rem; font-family: var(--font-ui); font-size: .86rem; font-weight: 500; color: rgba(246, 242, 234, .9); }
-.hero__title { font-size: clamp(3.1rem, .6rem + 8.6vw, 8.4rem); line-height: .94; letter-spacing: -.045em; max-width: 11ch; margin-bottom: clamp(1.6rem, 3vw, 2.6rem); text-shadow: 0 2px 50px rgba(0, 0, 0, .25); }
+.hero__title { font-size: clamp(3.1rem, .6rem + 8.6vw, 8.4rem); line-height: .94; letter-spacing: -.02em; max-width: 11ch; margin-bottom: clamp(1.6rem, 3vw, 2.6rem); text-shadow: 0 2px 50px rgba(0, 0, 0, .25); }
 .hero__row { display: grid; gap: 1.8rem; align-items: end; margin-bottom: clamp(2rem, 4vw, 3.2rem); }
 .hero__lede { max-width: 31rem; font-size: clamp(1.02rem, .98rem + .25vw, 1.2rem); line-height: 1.6; color: #F3EEE3; margin: 0; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.6rem; }
@@ -127,12 +122,12 @@ body:has(.menu[open]) .book-bar, body:has(.cal:not([hidden])) .book-bar { transf
 .page-hero { position: relative; isolation: isolate; color: var(--cream); min-height: clamp(24rem, 58vh, 38rem); display: grid; align-items: end; background: #3b4237; overflow: hidden; }
 .page-hero__scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20, 22, 19, .52) 0%, rgba(20, 22, 19, .1) 38%, rgba(20, 22, 19, .72) 100%); }
 .page-hero__content { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; padding-top: calc(var(--header-h) + 4rem); padding-bottom: clamp(2.2rem, 5vw, 4rem); }
-.page-hero__title { font-size: clamp(2.8rem, 1rem + 6.2vw, 6.4rem); line-height: .98; letter-spacing: -.04em; max-width: 14ch; margin-bottom: 1rem; }
+.page-hero__title { font-size: clamp(2.8rem, 1rem + 6.2vw, 6.4rem); line-height: .98; letter-spacing: -.02em; max-width: 14ch; margin-bottom: 1rem; }
 .page-hero__lede { max-width: 34rem; font-size: clamp(1.02rem, .98rem + .25vw, 1.2rem); line-height: 1.6; color: #F3EEE3; margin: 0; }
 
 .page-intro { padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 5rem)); padding-bottom: 1rem; }
 .page-intro__inner { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; }
-.page-intro .display { max-width: 15ch; font-size: clamp(2.8rem, 1rem + 6vw, 6rem); line-height: .98; letter-spacing: -.04em; }
+.page-intro .display { max-width: 15ch; font-size: clamp(2.8rem, 1rem + 6vw, 6rem); line-height: .98; letter-spacing: -.02em; }
 .page-intro--center .page-intro__inner { text-align: center; }
 .page-intro--center .display { margin-inline: auto; }
 
@@ -148,7 +143,7 @@ body:has(.menu[open]) .book-bar, body:has(.cal:not([hidden])) .book-bar { transf
 @media (max-width: 699px) {
   .hero__content { padding-top: calc(var(--header-h) + 1.4rem); }
   .hero__label { margin-bottom: .9rem; }
-  .hero__title { font-size: clamp(2.7rem, 13vw, 3.4rem); margin-bottom: 1.1rem; }
+  .hero__title { font-size: clamp(3.3rem, 16.5vw, 4.4rem); margin-bottom: 1.1rem; line-height: .95; }
   .hero__row { gap: 1.1rem; margin-bottom: 1.4rem; }
   .hero__lede { font-size: 1rem; line-height: 1.5; }
 }

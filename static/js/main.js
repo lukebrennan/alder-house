@@ -9,6 +9,7 @@ import { initForms } from "./forms.js";
 import { initMap } from "./map.js";
 import { initJournalFilter } from "./filter.js";
 import { initBooking } from "./booking.js";
+import { initPrefetch } from "./prefetch.js";
 
 const domReady = (fn) => (document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn) : fn());
 
@@ -23,6 +24,7 @@ domReady(() => {
   initMap();
   initJournalFilter();
   initBooking();
+  initPrefetch();
   // Scroll reveals wait for the curtain so nothing animates unseen behind it.
   ready.then(initReveal);
 });
